@@ -4,19 +4,20 @@ FogonClick es un sistema web para la operación de un restaurante. Incluye inici
 
 Esta guía explica cómo clonar el repositorio, instalar lo necesario y probar el mismo ambiente que usamos como equipo.
 
-## 🚀 Sobre el Proyecto
+## Sobre el Proyecto
 
 FogonClick nace inspirado en un amigo que quizo emprender en el tema de la comida rapida. Con el objetivo de reducir el tiempo y dinero que pierde un restaurante en el proceso entre que un cliente pide la cuenta, paga y recibe su factura electrónica. Desarrollado como un prototipo funcional en tan solo 24 horas para una hackathon de APIs, el sistema logra automatizar la facturación y el cobro en un solo flujo. Nuestro objetivo es lograr cero filas, cero errores humanos y clientes más felices operando más rápido.
 
 **Nota importante:** Cabe destacar que esta es una versión demo, por lo que la optimización puede no ser muy buena actualmente. Esto está contemplado para arreglos futuros con la visión de escalar y llegar a ser un proyecto de empresa tipo SaaS.
 
-## ✨ Flujo Principal
+## Flujo Principal
 
-La plataforma conecta el pago, la facturación y la entrega del comprobante sin gran intervencion humana. El proceso se resume en 3 pasos:
+La plataforma conecta el pago, la facturación y la entrega del comprobante sin gran intervencion humana. El proceso se resume en 4 pasos:
 
-1. **Escaneo y pago:** Generación de un código QR dinámico desde una interfaz visual e intuitiva en la caja.
-2. **Validación y facturación:** Tras confirmar el pago, el sistema emite la factura electrónica al instante (cumplimiento DIAN garantizado y 100% legal).
-3. **Entrega:** La factura llega automáticamente al Gmail del cliente si asi lo desea, logrando comprobantes 100% trazables.
+1. **Carrito:** Agrega los productos a comprar desde la interfaz visual e intuitiva en la caja.
+2. **Escaneo y pago:** Generación de un código QR dinámico desde una interfaz visual e intuitiva en la caja (que debe ser leido desde el simulador de Factus Pay).
+3. **Validación y facturación:** Tras confirmar el pago automaticamente, el sistema emite la factura electrónica al instante (cumplimiento DIAN garantizado y 100% legal).
+4. **Entrega:** La factura llega automáticamente al Gmail del cliente si asi lo desea, logrando comprobantes 100% trazables.
 
 ---
 
@@ -26,22 +27,22 @@ La plataforma conecta el pago, la facturación y la entrega del comprobante sin 
 - **Node.js 20.6 o posterior**, que incluye npm. La versión mínima se debe al uso de `--env-file` en el comando de inicio.
 - **Un editor de código** como recomendación Visual Studio Code (opcional).
 
-No necesitas instalar XAMPP, Apache, MySQL ni PostgreSQL. El proyecto corre con Node.js y se conecta a Supabase por internet.
+**Nota: **No necesitas instalar XAMPP, Apache, MySQL ni PostgreSQL. El proyecto corre con Node.js y se conecta a Supabase por internet.
 
 Comprueba que Git y Node estén disponibles desde PowerShell:
 
-git --version
-node --version
-npm --version
+- git --version
+- node --version
+- npm --version
 
 ## 2. Clonar e instalar
 
 1. En GitHub, abre el repositorio, presiona **Code** y copia la URL para clonar.
 2. En PowerShell, sustituye `URL_DEL_REPOSITORIO` por esa URL y ejecuta:
 
-git clone URL_DEL_REPOSITORIO RESTAURANTE
-cd RESTAURANTE
-npm ci
+- git clone URL_DEL_REPOSITORIO RESTAURANTE
+- cd RESTAURANTE
+- npm ci
 
 `npm ci` instala las dependencias fijadas en `package-lock.json`. Si descargas el repositorio como ZIP, extrae la carpeta, abre PowerShell dentro de ella y ejecuta `npm ci`.
 
@@ -52,7 +53,7 @@ Sabemos que no es una buena practica pero como equipo decidimos compartirte el a
 Para usar la base de datos y las integraciones que ya tiene el equipo:
 
 1. Confirma que el archivo `.env` esté en la raíz del proyecto.
-2. No cambies sus valores ni ejecutes el esquema SQL sobre la base de datos compartida (este .sql es por si llega a registrar su empresa desde 0 en el sistema).
+2. No cambies sus valores ni ejecutes el esquema SQL sobre la base de datos compartida (este .sql que encuentras en `Documents` es por si llega a registrar su empresa desde 0 en el sistema).
 3. Sigue los pasos de la sección 6, **Arrancar la aplicación**.
 
 Con ese `.env` no necesitas crear otro proyecto de Supabase ni cuentas propias de Factus, Factus Pay o Gmail. Se comparte con el objetivo estricto de que los calificadores no lo compartan sino sea para calificar nuestro trabajo.
@@ -65,15 +66,15 @@ Sigue estos pasos únicamente si quieres usar una base de datos y credenciales p
 2. En **SQL Editor**, ejecuta todo el archivo `Documentos/Bd.sql`. Esta es la estructura de SQL que deben seguir al crear su propia empresa desde cero.
 3. En una base recién creada, antes del primer registro, ejecuta este ajuste para que la primera empresa tenga el ID 7:
 
-   SELECT setval(pg_get_serial_sequence('public.empresa', 'id_empresa'), 6, true);
+   **SELECT setval(pg_get_serial_sequence('public.empresa', 'id_empresa'), 6, true);**
 
    El panel de administración de esta versión trabaja con la empresa de ID 7. No ejecutes el ajuste si ya hay datos en `empresa`; verifica que exista la empresa con ese ID.
 
 4. Copia `.env.example` como `.env`. Desde **Project Settings → API** en Supabase, reemplaza los valores de ejemplo por la URL y las claves de tu proyecto:
 
-   SUPABASE_URL=https://<project-ref>.supabase.co
-   SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
-   SUPABASE_SECRET_KEY=sb_secret_...
+   - SUPABASE_URL=https://<project-ref>.supabase.co
+   - SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
+   - SUPABASE_SECRET_KEY=sb_secret_...
 
    La clave secreta solo se usa en el servidor. No la pongas en archivos de `Public/`.
 
@@ -111,7 +112,7 @@ Desde la carpeta raíz ejecuta:
 
 npm start
 
-Abre http://localhost:3000/Index.html. Express sirve directamente los archivos HTML, CSS y JavaScript; no hay que compilar el frontend.
+Abre en tu navegador de preferencia http://localhost:3000/Index.html. Express sirve directamente los archivos HTML, CSS y JavaScript; no hay que compilar el frontend.
 
 Para detener el servidor, usa `Ctrl+C` en la terminal donde ejecutaste `npm start`. Si el puerto 3000 está ocupado, agrega `PORT=3001` al `.env` y abre http://localhost:3001/Index.html.
 
