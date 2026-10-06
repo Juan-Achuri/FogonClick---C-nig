@@ -4,10 +4,6 @@ FogonClick es un sistema web para la operación de un restaurante. Incluye inici
 
 Esta guía explica cómo clonar el repositorio, instalar lo necesario y probar el mismo ambiente que usamos como equipo.
 
-
-
-
-
 ## Sobre el Proyecto
 
 FogonClick nace inspirado en un amigo que quizo emprender en el tema de la comida rapida. Con el objetivo de reducir el tiempo y dinero que pierde un restaurante en el proceso entre que un cliente pide la cuenta, paga y recibe su factura electrónica. Desarrollado como un prototipo funcional en tan solo 24 horas para una hackathon de APIs, el sistema logra automatizar la facturación y el cobro en un solo flujo. Nuestro objetivo es lograr cero filas, cero errores humanos y clientes más felices operando más rápido.
@@ -23,7 +19,6 @@ La plataforma conecta el pago, la facturación y la entrega del comprobante sin 
 3. **Validación y facturación:** Tras confirmar el pago automaticamente, el sistema emite la factura electrónica al instante (cumplimiento DIAN garantizado y 100% legal).
 4. **Entrega:** La factura llega automáticamente al Gmail del cliente si asi lo desea, logrando comprobantes 100% trazables.
 
----
 
 ## 1. Qué necesitas instalar
 
