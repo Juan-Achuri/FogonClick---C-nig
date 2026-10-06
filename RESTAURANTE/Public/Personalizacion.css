@@ -1,0 +1,71 @@
+/* Capa visual de personalización, separada para conservar intacto Style.css. */
+:root { --fc-background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%); --fc-surface:#1a1a2e; --fc-surface-hover:rgba(255,255,255,.09); --fc-text:#f6f7fb; --fc-muted:#c2c5ce; --fc-accent:#e94560; --fc-border:rgba(255,255,255,.14); --fc-sidebar:#141a2a; --fc-shadow-color:rgba(0,0,0,.32); --fc-shadow:0 4px 0 rgba(0,0,0,.24); }
+body { background:var(--fc-background) !important; color:var(--fc-text) !important; }
+.admin-sidebar { background:var(--fc-sidebar) !important; border-color:var(--fc-border) !important; }
+.sidebar-brand,.sidebar-footer,.footer { border-color:var(--fc-border) !important; }
+.sidebar-brand h1,.section-title,.admin-main,.admin-content,.cajero-main { color:var(--fc-text); }
+.nav-item { color:var(--fc-muted); }
+.nav-item:hover { color:var(--fc-text); background:var(--fc-surface-hover); }
+.nav-item.active,.btn-primary,.btn-cerrar { background:var(--fc-accent) !important; border-color:var(--fc-accent) !important; color:#fff !important; }
+:is(.dash-card,.dash-card-reportes,.card,.ProductoCard,.cajero-pedido,.stat-card,.pedido-card,.table-wrapper,.modal-admin,.cajero-banner,.factus-pay-dialog) { color:var(--fc-text); background-color:var(--fc-surface); border-color:var(--fc-border); }
+.form-group input,.form-group select,.form-group textarea,input,select,textarea { color:var(--fc-text); background-color:var(--fc-surface); border-color:var(--fc-border); }
+.form-group label,.section-subtitle,.divider,.dash-label,.stat-label,.cajero-info-item small,.cajero-banner p,.cajero-card-info .DescripcionProducto,.cajero-totales div,.cajero-pedido-item .PedidoCantidad { color:var(--fc-muted); }
+.dash-num,.stat-num,.cajero-info-item h3,.cajero-banner h1,.cajero-card-info .NombreProducto,.cajero-pedido-item .PedidoNombre,.cajero-totales div:last-child,.cajero-totales div:last-child strong { color:var(--fc-text); }
+.cajero-card-footer .PrecioProducto,.cajero-pedido-item .PedidoPrecio { color:var(--fc-accent) !important; }
+.cajero-btn-agregar { color:#fff !important; background:var(--fc-accent) !important; border-color:var(--fc-accent) !important; }
+table,th,td { color:var(--fc-text); border-color:var(--fc-border); }
+:root[data-fc-mode="light"] .stat-pendiente .stat-num { color:#984400 !important; }
+:root[data-fc-mode="light"] .stat-preparando .stat-num { color:#1459a6 !important; }
+:root[data-fc-mode="light"] .stat-completado .stat-num { color:#176b39 !important; }
+:root[data-fc-mode="light"] .dash-num,:root[data-fc-mode="light"] .stat-num,:root[data-fc-mode="light"] .cajero-info-item h3,:root[data-fc-mode="light"] .cajero-banner h1,:root[data-fc-mode="light"] .cajero-card-info .NombreProducto,:root[data-fc-mode="light"] .cajero-pedido-item .PedidoNombre,:root[data-fc-mode="light"] .cajero-totales div:last-child,:root[data-fc-mode="light"] .cajero-totales div:last-child strong { color:var(--fc-text) !important; }
+:root[data-fc-mode="light"] .form-group label,:root[data-fc-mode="light"] .section-subtitle,:root[data-fc-mode="light"] .divider,:root[data-fc-mode="light"] .dash-label,:root[data-fc-mode="light"] .stat-label,:root[data-fc-mode="light"] .cajero-info-item small,:root[data-fc-mode="light"] .cajero-banner p,:root[data-fc-mode="light"] .cajero-card-info .DescripcionProducto,:root[data-fc-mode="light"] .cajero-totales div,:root[data-fc-mode="light"] .cajero-pedido-item .PedidoCantidad { color:var(--fc-muted) !important; }
+:root[data-fc-mode="light"] .badge-off,:root[data-fc-mode="light"] .badge-entregado { color:#505660 !important; }
+:root[data-fc-mode="light"] .badge-ok,:root[data-fc-mode="light"] .badge-listo { color:#176b39 !important; }
+:root[data-fc-mode="light"] .badge-warn,:root[data-fc-mode="light"] .badge-pendiente { color:#8c4c00 !important; }
+:root[data-fc-mode="light"] .badge-rol,:root[data-fc-mode="light"] .badge-preparando { color:#16559c !important; }
+.personalizacion-combo,.personalizacion-combo > summary { color:var(--fc-text) !important; }
+.personalizacion-combo > summary { background:var(--fc-surface) !important; border-color:var(--fc-border) !important; }
+.personalizacion-opciones { color:var(--fc-text) !important; background:var(--fc-surface) !important; border-color:var(--fc-border) !important; box-shadow:0 10px 22px var(--fc-shadow-color) !important; }
+.personalizacion-opcion { color:var(--fc-text) !important; }
+.personalizacion-opcion + .personalizacion-opcion { border-color:var(--fc-border) !important; }
+.descripcion-estilo { color:var(--fc-muted) !important; }
+.personalizacion-opcion input[type="radio"]:checked + .personalizacion-muestra { background:color-mix(in srgb,var(--fc-accent) 15%,var(--fc-surface)) !important; box-shadow:inset 3px 0 var(--fc-accent) !important; }
+.personalizacion-confirmacion { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:22px; padding:15px; color:var(--fc-text); background:var(--fc-surface); border:1px solid var(--fc-border); border-radius:12px; }
+.personalizacion-confirmacion p { margin:0; color:var(--fc-muted); }
+.personalizacion-confirmacion button:disabled { opacity:.5; cursor:not-allowed; }
+:root[data-fc-icon-style] .bi:not(.personalizacion-opciones .bi) { display:inline-block !important; width:auto !important; height:auto !important; padding:0 !important; border:0 !important; border-radius:0 !important; background:transparent !important; line-height:1; vertical-align:middle; box-sizing:content-box; transform:none !important; filter:none !important; text-shadow:none !important; color:inherit !important; }
+.dash-icon,.nav-item > span:first-child,.logo-fire { display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto; line-height:1; }
+.dash-icon { width:3rem; height:3rem; }
+.nav-item > span:first-child,.logo-fire { width:2.5rem; height:2.5rem; }
+.muestra-icono { display:inline-flex !important; align-items:center; justify-content:center; flex-wrap:wrap; gap:7px; vertical-align:middle; }
+.muestra-icono > i { display:inline-flex !important; align-items:center; justify-content:center; width:1.5em; height:1.5em; margin:0 !important; padding:0 !important; line-height:1; }
+:root[data-fc-icon-style="clasico"] .bi:not(.personalizacion-opciones .bi) { color:var(--fc-accent) !important; }
+:root[data-fc-icon-style="lineal"] .bi:not(.personalizacion-opciones .bi) { opacity:.82; }
+:root[data-fc-icon-style="minimalista"] .bi:not(.personalizacion-opciones .bi) { font-size:.82em; opacity:.72; }
+:root[data-fc-icon-style="circular"] .dash-icon,:root[data-fc-icon-style="circular"] .nav-item > span:first-child,:root[data-fc-icon-style="circular"] .logo-fire { border-radius:50%; background:var(--fc-accent); color:#fff; }
+:root[data-fc-icon-style="cuadrado"] .dash-icon,:root[data-fc-icon-style="cuadrado"] .nav-item > span:first-child,:root[data-fc-icon-style="cuadrado"] .logo-fire { border:2px solid var(--fc-accent); border-radius:7px; color:var(--fc-accent); }
+:root[data-fc-icon-style="suave"] .dash-icon,:root[data-fc-icon-style="suave"] .nav-item > span:first-child,:root[data-fc-icon-style="suave"] .logo-fire { border-radius:13px; background:color-mix(in srgb,var(--fc-accent) 18%,var(--fc-surface)); color:var(--fc-accent); }
+:root[data-fc-icon-style="divertido"] .bi:not(.personalizacion-opciones .bi),:root[data-fc-icon-style="elegante"] .bi:not(.personalizacion-opciones .bi) { color:var(--fc-accent) !important; }
+:root[data-fc-icon-style="calido"] .dash-icon,:root[data-fc-icon-style="calido"] .nav-item > span:first-child,:root[data-fc-icon-style="calido"] .logo-fire { border-radius:9px; background:color-mix(in srgb,var(--fc-accent) 15%,var(--fc-surface)); color:var(--fc-accent); }
+:root[data-fc-icon-style="monocromatico"] .bi:not(.personalizacion-opciones .bi) { color:var(--fc-muted) !important; opacity:.85; }
+:root[data-fc-page-style] :is(.admin-sidebar,.dash-card,.dash-card-reportes,.card,.ProductoCard,.cajero-pedido,.stat-card,.pedido-card,.table-wrapper,.modal-admin,.cajero-banner,.factus-pay-dialog) { backdrop-filter:none !important; -webkit-backdrop-filter:none !important; transition:none !important; transform:none !important; filter:none !important; box-shadow:none !important; }
+:root[data-fc-page-style="transparente"] :is(.admin-sidebar,.dash-card,.dash-card-reportes,.card,.ProductoCard,.cajero-pedido,.stat-card,.pedido-card,.table-wrapper,.modal-admin,.cajero-banner,.factus-pay-dialog) { background-color:color-mix(in srgb,var(--fc-surface) 58%,transparent) !important; background-image:linear-gradient(145deg,color-mix(in srgb,white 10%,transparent),transparent 58%) !important; border-color:color-mix(in srgb,white 24%,var(--fc-border)) !important; }
+:root[data-fc-mode="light"][data-fc-page-style="transparente"] :is(.admin-sidebar,.dash-card,.dash-card-reportes,.card,.ProductoCard,.cajero-pedido,.stat-card,.pedido-card,.table-wrapper,.modal-admin,.cajero-banner,.factus-pay-dialog) { background-image:linear-gradient(145deg,color-mix(in srgb,white 72%,transparent),transparent 62%) !important; border-color:color-mix(in srgb,white 78%,var(--fc-border)) !important; }
+:root[data-fc-page-style="transparente"] :is(.admin-sidebar,.dash-card-reportes,.cajero-pedido,.table-wrapper,.modal-admin,.factus-pay-dialog) { backdrop-filter:blur(5px) !important; -webkit-backdrop-filter:blur(5px) !important; }
+:root[data-fc-page-style="solido"] :is(.admin-sidebar,.dash-card,.dash-card-reportes,.card,.ProductoCard,.cajero-pedido,.stat-card,.pedido-card,.table-wrapper,.modal-admin,.cajero-banner,.factus-pay-dialog) { background:var(--fc-surface) !important; opacity:1 !important; }
+:root[data-fc-page-style="sombreado"] :is(.dash-card,.dash-card-reportes,.card,.ProductoCard,.cajero-pedido,.stat-card,.pedido-card,.table-wrapper) { box-shadow:0 3px 0 var(--fc-shadow-color) !important; }
+:root[data-fc-page-style="esquinas"] :is(.dash-card,.dash-card-reportes,.card,.ProductoCard,.cajero-pedido,.stat-card,.pedido-card,.table-wrapper) { border-radius:26px !important; }
+:root[data-fc-page-style="delineado"] :is(.dash-card,.dash-card-reportes,.card,.ProductoCard,.cajero-pedido,.stat-card,.pedido-card,.table-wrapper) { border:2px solid var(--fc-accent) !important; }
+:root[data-fc-page-style="elevado"] :is(.dash-card,.dash-card-reportes,.card,.ProductoCard,.cajero-pedido,.stat-card,.pedido-card) { border-bottom:4px solid color-mix(in srgb,var(--fc-accent) 65%,var(--fc-border)) !important; }
+:root[data-fc-page-style="compacto"] :is(.dash-card,.card,.ProductoCard,.cajero-pedido,.stat-card,.pedido-card) { padding:9px !important; border-radius:7px !important; }
+:root[data-fc-page-style="compacto"] .sidebar-nav { gap:1px !important; }
+:root[data-fc-page-style="compacto"] .nav-item { padding:7px 9px !important; font-size:.82rem !important; }
+:root[data-fc-page-style="aireado"] :is(.dash-card,.card,.ProductoCard,.cajero-pedido,.stat-card,.pedido-card) { padding:30px !important; }
+:root[data-fc-page-style="aireado"] .sidebar-nav { gap:12px !important; }
+:root[data-fc-page-style="aireado"] .nav-item { padding:16px 18px !important; }
+:root[data-fc-page-style="minimalista"] :is(.dash-card,.dash-card-reportes,.card,.ProductoCard,.cajero-pedido,.stat-card,.pedido-card,.table-wrapper) { background:transparent !important; border-color:transparent !important; border-radius:0 !important; }
+:root[data-fc-page-style="separadores"] :is(.dash-card,.dash-card-reportes,.card,.ProductoCard,.cajero-pedido,.stat-card,.pedido-card) { background:transparent !important; border:0 !important; border-left:4px solid var(--fc-accent) !important; border-radius:0 !important; }
+.muestra-pagina[data-vista="transparente"] { background-color:color-mix(in srgb,Canvas 58%,transparent); background-image:linear-gradient(145deg,rgba(255,255,255,.3),transparent 65%); border-color:rgba(255,255,255,.55); box-shadow:inset 0 1px 0 rgba(255,255,255,.32); }
+.muestra-pagina[data-vista="transparente"] > span { background:color-mix(in srgb,Canvas 45%,transparent); border-color:rgba(255,255,255,.45); }
+@media (prefers-reduced-transparency: reduce) { :root[data-fc-page-style="transparente"] :is(.admin-sidebar,.dash-card-reportes,.cajero-pedido,.table-wrapper,.modal-admin,.factus-pay-dialog) { backdrop-filter:none !important; -webkit-backdrop-filter:none !important; } }
+@media (max-width:700px) { :root[data-fc-page-style="aireado"] :is(.dash-card,.card,.ProductoCard,.cajero-pedido) { padding:19px !important; } .personalizacion-confirmacion { align-items:stretch; flex-direction:column; } }

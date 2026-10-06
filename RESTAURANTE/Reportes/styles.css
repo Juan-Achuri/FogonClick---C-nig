@@ -1,0 +1,237 @@
+/*=============================
+    VARIABLES POR PERFIL
+=============================*/
+
+:root {
+  --color-primario: #e94560;
+  --color-primario-hover: #c73e54;
+  --color-header: #e94560;
+  --color-fondo-msg: rgba(255, 255, 255, 0.05);
+  --color-fondo-msg-alt: rgba(255, 255, 255, 0.03);
+  --color-fondo-msg-hover: rgba(255, 255, 255, 0.08);
+  --color-texto: #f8fafc;
+  --color-texto-sec: #a0a0a0;
+  --color-input-bg: rgba(255, 255, 255, 0.05);
+  --color-input-border: rgba(255, 255, 255, 0.15);
+  --fuente: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Administración */
+[data-rol="admin"] {
+  --color-primario: #e94560;
+  --color-primario-hover: #c73e54;
+  --color-header: #e94560;
+}
+
+/* Caja */
+[data-rol="caja"] {
+  --color-primario: #1e3a5f;
+  --color-primario-hover: #162d4d;
+  --color-header: #1e3a5f;
+}
+
+/* Cocina */
+[data-rol="cocina"] {
+  --color-primario: #54a0ff;
+  --color-primario-hover: #3d8bfe;
+  --color-header: #54a0ff;
+}
+
+/*=============================
+    ESTILOS GENERALES DEL CHAT
+=============================*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: var(--fuente);
+  background: transparent;
+  color: var(--color-texto);
+  line-height: 1.6;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 4.5rem;
+}
+
+/*=============================
+    HEADER DEL CHAT
+=============================*/
+
+header {
+  background: var(--color-header);
+  text-align: center;
+  padding: 18px;
+  border-radius: 12px 12px 0 0;
+  flex-shrink: 0;
+}
+
+header h1 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+/*=============================
+    MENSAJES
+=============================*/
+
+#messages {
+  list-style: none;
+  margin: 0;
+  padding: 20px;
+  padding-bottom: 5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+#messages > li {
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  background: var(--color-fondo-msg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--color-texto);
+  max-width: 85%;
+  word-wrap: break-word;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  animation: fadeIn 0.3s ease;
+}
+
+#messages > li:nth-child(odd) {
+  background: var(--color-fondo-msg-alt);
+}
+
+#messages > li:hover {
+  background: var(--color-fondo-msg-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/*=============================
+    FORMULARIO DE ENVÍO
+=============================*/
+
+#form {
+  background: rgba(10, 10, 25, 0.85);
+  padding: 0.6rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  height: 4rem;
+  box-sizing: border-box;
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 8px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+#input {
+  border: 1px solid var(--color-input-border);
+  padding: 0 1rem;
+  flex-grow: 1;
+  border-radius: 12px;
+  margin: 0.25rem 0;
+  background: var(--color-input-bg);
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-family: var(--fuente);
+  transition: all 0.3s ease;
+}
+
+#input::placeholder {
+  color: #666;
+}
+
+#input:focus {
+  outline: none;
+  border-color: var(--color-primario);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+#form > button {
+  background: var(--color-primario);
+  border: none;
+  padding: 0 1.8rem;
+  margin: 0.25rem 0;
+  border-radius: 12px;
+  outline: none;
+  color: #ffffff;
+  font-weight: 600;
+  font-family: var(--fuente);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#form > button:hover {
+  background: var(--color-primario-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/*=============================
+    SCROLLBAR PERSONALIZADA
+=============================*/
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primario);
+}
+
+/*=============================
+    ANIMACIÓN DE ENTRADA
+=============================*/
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/*=============================
+    COLORES DE MENSAJE POR ROL
+=============================*/
+
+.msg-admin {
+    background: rgba(233, 69, 96, 0.15) !important;
+    border-left: 4px solid #e94560 !important;
+}
+
+.msg-cocina {
+    background: rgba(84, 160, 255, 0.15) !important;
+    border-left: 4px solid #54a0ff !important;
+}
+
+.msg-caja {
+    background: rgba(30, 58, 95, 0.4) !important;
+    border-left: 4px solid #1e3a5f !important;
+}

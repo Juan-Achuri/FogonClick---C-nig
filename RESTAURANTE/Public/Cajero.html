@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FogonClick | Cajero</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="authFetch.js"></script>
+        <script src="Controllers/Cajero.js?v=20261005-factus-invoice-2" defer></script>
+        <link rel="stylesheet" href="Personalizacion.css">
+    <script src="personalizacion.js" defer></script>
+</head>
+
+    <body>
+
+        <div class="admin-layout">
+
+            <!-- Sidebar -->
+            <aside class="admin-sidebar">
+
+                <div class="sidebar-brand">
+                    <span class="logo-fire">🔥</span>
+                    <h1>FogonClick</h1>
+                </div>
+
+                <nav class="sidebar-nav">
+
+                    <button class="nav-item active" data-section="ventas" onclick="mostrarSeccion('ventas')">
+                        <span>💰</span> Ventas
+                    </button>
+
+                    <button class="nav-item" data-section="reportar" onclick="mostrarSeccion('reportar')">
+                        <span>⚠️</span> Reportar
+                    </button>
+
+                </nav>
+
+                <div class="sidebar-footer">
+                
+                    <button class="btn-cerrar" onclick="window.location.href='../index.html'">Cerrar sesión</button>
+                </div>
+
+            </aside>
+
+            <!-- Content Area -->
+            <div class="admin-content">
+
+                <main class="admin-main">
+
+                    <!-- VENTAS (el panel de caja actual) -->
+                    <section id="ventas" class="admin-section active">
+
+                        <div class="cajero-grid">
+
+                            <!-- MENÚ -->
+                            <div class="cajero-main">
+
+                                <div class="tabs cajero-tabs">
+                
+                                    <button class="tab active" id="btnDestacado">Recomendados</button>
+                                    <button class="tab" id="btnMenuCompleto">Menú Completo</button>
+                
+                                </div>
+
+                                <!-- RECOMENDADOS -->
+                                <div id="VistaDestacado" class="card cajero-banner VistaActiva">
+                
+                                    <div class="estadisticas-grid cajero-productos" id="ContenedorRecomendados"></div>
+                
+                                </div>                
+
+                                <!-- MENÚ COMPLETO -->
+                                <div id="VistaMenu" class="card cajero-banner VistaOculta">
+                
+                                    <div class="estadisticas-grid cajero-productos" id="ContenedorMenu"></div>
+                
+                                </div>
+
+                            </div>
+
+                            <!-- PEDIDO / FACTURA -->
+                            <aside class="card cajero-pedido">
+
+                                <div class="section-header cajero-pedido-header">
+                
+                                    <h2 class="section-title">Factura:</h2>
+                                    <span id="PedidoActual" class="badge badge-rol">#0001</span>
+                
+                                </div>
+
+                                <div class="divider"><span>Productos</span></div>
+                                <div class="cajero-lista-pedido" id="ListaPedido"></div>
+
+                                <div class="divider"><span>Datos del cliente</span></div>
+
+                                <div class="form-group">
+                                    <label id="EtiquetaCliente" for="Cliente">Nombre</label>
+                                    <input type="text" id="Cliente" placeholder="Nombre del cliente">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Cedula">Cédula</label>
+                                    <input type="text" id="Cedula" inputmode="numeric" placeholder="1234567890">
+                                </div>
+
+                                <div class="two-columns">
+                                    <div class="form-group">
+                                        <label for="TipoDocumentoCliente">Tipo de documento</label>
+                                        <select id="TipoDocumentoCliente">
+                                            <option value="13" selected>Cédula de ciudadanía</option>
+                                            <option value="31">NIT</option>
+                                            <option value="22">Cédula de extranjería</option>
+                                            <option value="41">Pasaporte</option>
+                                            <option value="42">Documento extranjero</option>
+                                            <option value="47">PEP</option>
+                                            <option value="48">PPT</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="TipoClienteFactura">Tipo de cliente</label>
+                                        <select id="TipoClienteFactura">
+                                            <option value="2" selected>Persona natural</option>
+                                            <option value="1">Persona jurídica</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id="GrupoRazonSocial" hidden>
+                                    <label for="RazonSocialCliente">Razón social</label>
+                                    <input type="text" id="RazonSocialCliente" placeholder="Razón social registrada en el RUT">
+                                </div>
+
+                                <div class="form-group" id="GrupoDVCliente" hidden>
+                                    <label for="DVCliente">Dígito de verificación del NIT</label>
+                                    <input type="text" id="DVCliente" inputmode="numeric" maxlength="1" placeholder="0">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="CorreoCliente">Correo (opcional)</label>
+                                    <input type="email" id="CorreoCliente" placeholder="cliente@correo.com">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="MunicipioClienteNombre">Municipio donde vive el cliente</label>
+                                    <input type="search" id="MunicipioClienteNombre" list="MunicipiosFactusOpciones" autocomplete="off" placeholder="Buscar municipio" value="Bogotá, D.C. (11001)">
+                                    <input type="hidden" id="MunicipioCliente" value="11001">
+                                    <small class="factus-field-help">Bogotá está seleccionado por defecto. Escribe para buscar otro municipio.</small>
+                                </div>
+
+                                <!-- Datos de pago temporalmente comentados mientras definimos el siguiente paso.
+                                <div class="divider"><span>Datos del pago</span></div>
+                                <div class="two-columns">
+                                    <div class="form-group">
+                                        <label for="FormaPago">Forma de pago</label>
+                                        <select id="FormaPago">
+                                            <option value="1" selected>Contado</option>
+                                            <option value="2">Crédito</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="MetodoPago">Método de pago</label>
+                                        <select id="MetodoPago">
+                                            <option value="10" selected>Efectivo</option>
+                                            <option value="49">Tarjeta débito</option>
+                                            <option value="48">Tarjeta crédito</option>
+                                            <option value="47">Transferencia</option>
+                                            <option value="42">Consignación</option>
+                                            <option value="20">Cheque</option>
+                                            <option value="71">Bonos</option>
+                                            <option value="72">Vales</option>
+                                            <option value="ZZZ">Otro</option>
+                                            <option value="FACTUS_PAY">Factus Pay · QR</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="GrupoVencimiento" hidden>
+                                    <label for="FechaVencimientoPago">Fecha de vencimiento del crédito</label>
+                                    <input type="date" id="FechaVencimientoPago">
+                                </div>
+                                <div class="form-group">
+                                    <label for="ReferenciaPago">Referencia del pago (opcional)</label>
+                                    <input type="text" id="ReferenciaPago" placeholder="Número de autorización o transacción">
+                                </div>
+                                -->
+
+                                <!-- Controles técnicos ocultos para conservar el estado actual del botón. -->
+                                <div hidden aria-hidden="true">
+                                    <select id="FormaPago"><option value="1" selected>Contado</option></select>
+                                    <select id="MetodoPago"><option value="FACTUS_PAY" selected>Factus Pay QR</option></select>
+                                    <div id="GrupoVencimiento" hidden><input type="date" id="FechaVencimientoPago"></div>
+                                    <input type="text" id="ReferenciaPago">
+                                </div>
+
+                                <div class="cajero-totales">
+                
+                                    <div>
+                
+                                        <span>Subtotal</span>
+                                        <strong id="Subtotal">$0</strong>
+                
+                                    </div>
+                
+                                    <div>
+                
+                                        <span>IVA</span>
+                                        <strong id="IVA">$0</strong>
+                
+                                    </div>
+                
+                                    <div>
+                
+                                        <span>Total</span>
+                                        <strong id="Total">$0</strong>
+                
+                                    </div>
+                
+                                </div>
+
+                
+                                <button id="ConfirmarPago" class="btn-primary btn-listo cajero-confirmar">Pagar con QR</button>
+                                <details class="factus-recovery">
+                                    <summary>¿Ya pagaste y falta la factura?</summary>
+                                    <p>Recupérala con el número del pedido. Esto no vuelve a cobrar el pago. Selecciona los datos fiscales que usaste en esa compra.</p>
+                                    <div class="form-group">
+                                        <label for="FactusPedidoRecuperar">Número de pedido</label>
+                                        <input type="text" id="FactusPedidoRecuperar" inputmode="numeric" placeholder="Ej. 15">
+                                    </div>
+                                    <div class="two-columns">
+                                        <div class="form-group">
+                                            <label for="FactusDocumentoRecuperar">Documento</label>
+                                            <select id="FactusDocumentoRecuperar">
+                                                <option value="13" selected>Cédula</option>
+                                                <option value="31">NIT</option>
+                                                <option value="22">Cédula extranjería</option>
+                                                <option value="41">Pasaporte</option>
+                                                <option value="42">Documento extranjero</option>
+                                                <option value="47">PEP</option>
+                                                <option value="48">PPT</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="FactusTipoClienteRecuperar">Tipo de cliente</label>
+                                            <select id="FactusTipoClienteRecuperar">
+                                                <option value="2" selected>Persona natural</option>
+                                                <option value="1">Persona jurídica</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="MunicipioRecuperarNombre">Municipio donde vive el cliente</label>
+                                        <input type="search" id="MunicipioRecuperarNombre" list="MunicipiosFactusOpciones" autocomplete="off" placeholder="Buscar municipio" value="Bogotá, D.C. (11001)">
+                                        <input type="hidden" id="MunicipioRecuperar" value="11001">
+                                    </div>
+                                    <button id="FactusFacturaRecuperar" type="button" class="btn-primary">Recuperar factura</button>
+                                    <p id="FactusFacturaRecuperarError" class="factus-invoice-error" role="status"></p>
+                                </details>
+                            </aside>
+
+                        </div>
+
+                    </section>
+
+                    <!-- REPORTAR -->
+                    <section id="reportar" class="admin-section">
+                     
+                        <div class="section-header">
+                     
+                            <h2 class="section-title">Reportar:</h2>
+                     
+                        </div>
+
+                        <div class="dash-card-reportes" id="Reportes">
+                                
+                            <iframe src="/reportes/Chat.html?rol=caja" id="iframe-chat" title="Chat FogonClick"></iframe>
+
+                        </div>
+
+                    </section>
+
+                </main>
+   
+            </div>
+   
+        </div>
+
+        <!-- Audio para notificación -->
+        <audio id="audio-nuevo" preload="auto">
+           
+            <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
+        
+        </audio>
+
+        <!-- TEMPLATES -->
+        <template id="TemplateProducto">
+        
+            <article class="ProductoCard dash-card cajero-card">
+        
+                <div class="ProductoImagen cajero-card-img">
+        
+                    <img src="" class="ImagenProducto">
+        
+                </div>
+        
+                <div class="ProductoInformacion cajero-card-info">
+        
+                    <h3 class="NombreProducto">Producto</h3>
+                    <small class="DescripcionProducto">Descripción</small>
+        
+                </div>
+        
+                <div class="ProductoInferior cajero-card-footer">
+       
+                    <span class="PrecioProducto">$0</span>
+                    <button class="AgregarProducto btn-icon-sm cajero-btn-agregar">+</button>
+       
+                </div>
+       
+            </article>
+       
+        </template>
+
+        <template id="TemplatePedido">
+       
+            <div class="PedidoItem cajero-pedido-item">
+       
+                <div>
+       
+                    <h4 class="PedidoNombre">Producto</h4>
+                    <small class="PedidoCantidad">x1</small>
+       
+                </div>
+       
+                <div>
+       
+                    <strong class="PedidoPrecio">$0</strong>
+       
+                </div>
+       
+            </div>
+       
+        </template>
+
+        <template id="TemplateCategoria">
+            <button class="Categoria tab cajero-categoria-btn">Nombre</button>
+        </template>
+
+
+        <!-- FOOTER -->
+        <footer class="footer">
+          
+            <div class="footer-content">
+          
+                <div class="footer-brand">
+          
+                    <span class="footer-logo">🔥 FogonClick</span>
+                    <span class="footer-version">v1.0</span>
+          
+                </div>
+          
+                <div class="footer-team">
+          
+                    <span>Desarrollado por <strong>Juan achuri</strong></span>
+                    <span>Y <strong>Matteo Figueroa</strong></span>
+          
+                </div>
+          
+                <div class="footer-links">
+          
+                    <a href="#">Términos de uso</a>
+                    <span>·</span>
+                    <a href="#">Privacidad</a>
+          
+                </div>
+          
+                <div class="footer-copy">
+          
+                    <span>© 2026 FogonClick. Todos los derechos reservados.</span>
+          
+                </div>
+          
+            </div>
+        
+        </footer>
+
+        <div id="FactusPayModal" class="factus-pay-modal" hidden>
+            <section class="factus-pay-dialog" role="dialog" aria-modal="true" aria-labelledby="FactusPayTitulo">
+                <h2 id="FactusPayTitulo">Pago con Factus Pay</h2>
+                <div id="FactusPayContenidoQR">
+                    <p id="FactusPayMensaje">Generando el código QR...</p>
+                    <img id="FactusPayQR" alt="Código QR para pagar" hidden>
+                    <p class="factus-pay-reference">Referencia: <strong id="FactusPayReferencia"></strong></p>
+                    <button id="FactusPayCerrar" type="button" class="btn-primary" disabled>Cerrar</button>
+                </div>
+                <div id="FactusFacturaResultado" class="factus-invoice-result" hidden>
+                    <p id="FactusFacturaEstado" class="factus-invoice-status"></p>
+                    <dl>
+                        <div><dt>Pedido</dt><dd id="FactusFacturaPedido"></dd></div>
+                        <div><dt>Total pagado</dt><dd id="FactusFacturaTotal"></dd></div>
+                        <div><dt>Factura Factus</dt><dd id="FactusNumeroFactura"></dd></div>
+                        <div><dt>CUFE</dt><dd id="FactusCufe" class="factus-invoice-cufe"></dd></div>
+                    </dl>
+                    <p id="FactusFacturaMensaje" class="factus-invoice-message"></p>
+                    <p id="FactusFacturaError" class="factus-invoice-error" role="status"></p>
+                    <div id="FactusFacturaMunicipioGrupo" class="form-group factus-retry-municipality" hidden>
+                        <label for="FactusFacturaMunicipioNombre">Municipio donde vive el cliente</label>
+                        <input type="search" id="FactusFacturaMunicipioNombre" list="MunicipiosFactusOpciones" autocomplete="off" placeholder="Buscar municipio">
+                        <input type="hidden" id="FactusFacturaMunicipio" value="11001">
+                    </div>
+                    <div id="FactusCorreoPanel" class="factus-email-panel" hidden>
+                        <label class="factus-email-choice" for="FactusEnviarCorreo">
+                            <input id="FactusEnviarCorreo" type="checkbox">
+                            <span>¿Enviar la factura al correo del cliente?</span>
+                        </label>
+                        <div id="FactusCorreoGrupo" class="form-group" hidden>
+                            <label for="FactusCorreoDestino">Correo de destino</label>
+                            <input id="FactusCorreoDestino" type="email" autocomplete="email" placeholder="cliente@correo.com">
+                            <small id="FactusCorreoEstado" class="factus-field-help" role="status"></small>
+                        </div>
+                    </div>
+                    <button id="FactusFacturaReintentar" type="button" class="btn-primary" hidden>Reintentar factura</button>
+                    <div class="factus-invoice-actions">
+                        <button id="FactusFacturaVer" type="button" class="btn-primary" disabled>Ver factura</button>
+                        <button id="FactusFacturaCerrar" type="button" class="factus-btn-secondary">Cerrar</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <datalist id="MunicipiosFactusOpciones"></datalist>
+
+    </body>
+
+</html>

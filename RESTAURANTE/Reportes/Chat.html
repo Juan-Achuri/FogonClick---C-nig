@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
+        <title>Chat FogonClick</title>
+    
+    </head>
+    
+    <body>
+    
+        <ul id="messages"></ul>
+    
+        <form id="form" action="">
+    
+            <input id="input" autocomplete="off" placeholder="Escribe un mensaje..." /><button>Send</button>
+    
+        </form>
+
+        <script src="/socket.io/socket.io.js"></script>
+    
+        <script>
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const rol = urlParams.get('rol');
+
+            document.documentElement.setAttribute('data-rol', rol || 'admin');
+            const socket = io({ auth: { rol } });
+
+            const form = document.getElementById('form');
+            const input = document.getElementById('input');
+            const messages = document.getElementById('messages');
+
+            // ============================================
+            // LEE EL ROL DESDE LA URL
+            // ============================================    
+            const nombresMap = {
+                'admin': 'Administración',
+                'cocina': 'Cocina',
+                'caja': 'Caja'
+            };
+
+            let username = nombresMap[rol] || 'Usuario';
+
+            // ============================================
+            // ENVÍO DE MENSAJES
+            // ============================================
+            form.addEventListener('submit', (e) => {
+                
+                e.preventDefault();
+
+                if (input.value) {
+                
+                    const ahora = new Date();
+                    const hora = ahora.getHours().toString().padStart(2, "0");
+                    const minutos = ahora.getMinutes().toString().padStart(2, "0");
+
+                    const mensaje = `[${hora}:${minutos}] ${username}: ${input.value}`;
+
+                    socket.emit('chat message', mensaje);
+                    input.value = '';
+                }
+            });
+
+            // ============================================
+            // RECEPCIÓN DE MENSAJES
+            // ============================================
+            socket.on('chat message', (msg) => {
+                
+                const item = document.createElement('li');
+                item.textContent = msg;
+
+                // Detecta el rol del remitente y aplica su color
+                if (msg.includes('Administración:')) {
+                    item.classList.add('msg-admin');
+                } else if (msg.includes('Cocina:')) {
+                    item.classList.add('msg-cocina');
+                } else if (msg.includes('Caja:')) {
+                    item.classList.add('msg-caja');
+                }
+
+                messages.appendChild(item);
+                window.scrollTo(0, document.body.scrollHeight);
+            
+            });
+    
+        </script>
+    
+    </body>
+
+    </html>

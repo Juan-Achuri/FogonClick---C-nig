@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>FogonClick</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="app.js"></script>
+        <base target="_blank"> 
+    
+        <link rel="stylesheet" href="Personalizacion.css">
+    <script src="personalizacion.js" defer></script>
+</head>
+    
+    <body>
+    
+        <div class="container">
+
+            <div class="logo-section">
+
+                <h1>🔥 FogonClick</h1>
+                <p>Sistema de Gestión para Restaurantes</p>
+
+            </div>
+
+            <div class="card">
+                
+                <!-- Pestañas -->
+                <div class="tabs">
+
+                    <button class="tab active" data-tab="login">Iniciar sesión</button>
+                    <button class="tab" data-tab="register">Registrarse</button>
+
+                </div>
+
+                <!-- INICIAR SESIÓN -->
+                <div id="login-section" class="form-section active">
+
+                    <h2 class="section-title">¡Bienvenido de vuelta!</h2>
+                    <p class="section-subtitle">Ingresa tus credenciales para poder continuar</p>
+
+                    <form id="login-form">
+                        
+                        <div class="form-group">
+
+                            <label for="login-email">Correo electrónico:</label>
+                            <input type="email" id="login-email" placeholder="tu@email.com" required>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="login-password">Contraseña:</label>
+                            <input type="password" id="login-password" placeholder="••••••••" required minlength="6" autocomplete="current-password">
+
+                        </div>
+
+                        <button type="submit" class="btn-primary">Iniciar sesión</button>
+                    
+                    </form>
+
+                    <p class="hint">
+                        ¿No tienes cuenta? 
+                        <a href="#" data-switch="register">Registra tu empresa</a>
+                    </p>
+
+                </div>
+
+                <!-- SECCIÓN: REGISTRARSE (solo admin/empresa) -->
+                <div id="register-section" class="form-section">
+
+                    <h2 class="section-title">Registra tu restaurante</h2>
+                    <p class="section-subtitle">Crea tu cuenta de administrador y registra tu empresa</p>
+
+                    <form id="register-form">
+
+                        <!-- Datos fiscales de la empresa: diligenciar según el RUT -->
+                        <div class="divider"><span>Datos fiscales de la empresa (según el RUT)</span></div>
+
+                        <div class="form-group">
+                            <label for="reg-tipo-organizacion">Tipo de organización</label>
+                            <select id="reg-tipo-organizacion" required>
+                                <option value="1" selected>Persona jurídica</option>
+                                <option value="2">Persona natural</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="grupo-razon-social">
+                            <label for="reg-razon-social">Razón social</label>
+                            <input type="text" id="reg-razon-social" placeholder="Como aparece en el RUT">
+                        </div>
+
+                        <div class="two-columns" id="grupo-nombre-persona" hidden>
+                            <div class="form-group">
+                                <label for="reg-nombres">Nombres</label>
+                                <input type="text" id="reg-nombres" autocomplete="given-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-apellidos">Apellidos</label>
+                                <input type="text" id="reg-apellidos" autocomplete="family-name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg-nombre-empresa">Nombre comercial del restaurante</label>
+                            <input type="text" id="reg-nombre-empresa" placeholder="Ej: Fogón Central" required>
+                        </div>
+
+                        <div class="two-columns">
+                            <div class="form-group">
+                                <label for="reg-nit">NIT (sin dígito de verificación)</label>
+                                <input type="text" id="reg-nit" inputmode="numeric" autocomplete="off" placeholder="900123456" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-dv">Dígito de verificación</label>
+                                <input type="text" id="reg-dv" inputmode="numeric" maxlength="1" placeholder="7" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg-registro-mercantil">Código de registro mercantil (opcional)</label>
+                            <input type="text" id="reg-registro-mercantil" placeholder="Según el registro de la empresa">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg-actividad-economica">Actividad económica principal (código CIIU)</label>
+                            <input type="text" id="reg-actividad-economica" inputmode="numeric" placeholder="Ej: 5611">
+                        </div>
+
+                        <div class="two-columns">
+                            <div class="form-group">
+                                <label for="reg-telefono-local">Teléfono</label>
+                                <input type="tel" id="reg-telefono-local" placeholder="3105551122">
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-correo-empresa">Correo de la empresa</label>
+                                <input type="email" id="reg-correo-empresa" placeholder="facturacion@restaurante.com">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg-direccion">Dirección fiscal</label>
+                            <input type="text" id="reg-direccion" placeholder="Calle 10 # 20-30">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reg-codigo-municipio">Código del municipio</label>
+                            <input type="text" id="reg-codigo-municipio" inputmode="numeric" placeholder="Código oficial Factus, ej. 11001" required>
+                        </div>
+
+                        <div class="two-columns">
+                            <div class="form-group">
+                                <label for="reg-codigo-tributo">Código del tributo</label>
+                                <select id="reg-codigo-tributo">
+                                    <option value="ZZ" selected>ZZ - No aplica</option>
+                                    <option value="01">01 - IVA</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-responsabilidades">Responsabilidad fiscal (código)</label>
+                                <input type="text" id="reg-responsabilidades" placeholder="Ej: R-99-PN">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="reg-logo">Logo del restaurante:</label>
+                            <input type="file" id="reg-logo" accept="image/*">
+
+                        </div>
+
+                        <div class="divider">
+
+                            <span>Datos del administrador</span>
+
+                        </div>
+
+                        <!-- Datos del admin -->
+                        <div class="form-group">
+
+                            <label for="reg-nombre-admin">Nombre completo:</label>
+                            <input type="text" id="reg-nombre-admin" placeholder="Juan Pérez" required>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="reg-cedula">Cédula:</label>
+                            <input type="text" inputmode="numeric" id="reg-cedula" name="cedula" placeholder="1234567890" required>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="reg-email">Correo electrónico:</label>
+                            <input type="email" id="reg-email" placeholder="juan@email.com" required>
+
+                        </div>
+
+                        <div class="two-columns">
+
+                            <div class="form-group">
+
+                                <label for="reg-password">Contraseña:</label>
+                                <input type="password" id="reg-password" placeholder="••••••••" required minlength="6" autocomplete="new-password">
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="reg-password-confirm">Confirmar:</label>
+                                <input type="password" id="reg-password-confirm" placeholder="••••••••" required minlength="6" autocomplete="new-password">
+
+                            </div>
+
+                        </div>
+
+                        <button type="submit" class="btn-primary">Crear cuenta y empresa</button>
+
+                    </form>
+
+                    <p class="hint">
+                        ¿Ya tienes cuenta? <a href="#" data-switch="login">Inicia sesión aquí</a>
+                    </p>
+
+                </div>
+
+            </div>
+            
+        </div>
+
+    </body>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+    
+        <div class="footer-content">
+                    
+            <div class="footer-brand">
+            
+                <span class="footer-logo">🔥 FogonClick</span>
+                <span class="footer-version">v1.0</span>
+    
+            </div>
+                    
+            <div class="footer-team">
+            
+                <span>Desarrollado por <strong>Juan achuri</strong></span>
+                <span>Y <strong>Matteo Figueroa</strong></span>
+            
+            </div>
+                    
+            <div class="footer-links">
+                    
+                <a href="#">Términos de uso</a>
+                <span>·</span>
+                <a href="#">Privacidad</a>
+                
+            </div>
+            
+            
+            <div class="footer-copy">
+            
+                <span>© 2026 FogonClick. Todos los derechos reservados.</span>
+            
+            </div>
+    
+        </div>
+    
+    </footer>
+
+</html>

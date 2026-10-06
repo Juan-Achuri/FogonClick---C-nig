@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+   
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Panel de Cocina | FogonClick</title>
+        <link rel="stylesheet" href="Style.css?v=20261006">
+        <script src="authFetch.js"></script>
+        <script src="Controllers/Cocinero.js" defer></script>
+   
+        <link rel="stylesheet" href="Personalizacion.css">
+    <script src="personalizacion.js" defer></script>
+</head>
+
+    <body>
+
+        <div class="admin-layout">
+
+            <!-- Sidebar -->
+            <aside class="admin-sidebar">
+
+                <div class="sidebar-brand">
+
+                    <span class="logo-fire">🔥</span>
+                    <h1>FogonClick</h1>
+
+                </div>
+
+                <nav class="sidebar-nav">
+
+                    <button class="nav-item active" data-section="pedidos" onclick="mostrarSeccion('pedidos')">
+                        <span>🍳</span> Pedidos
+                    </button>
+
+                    <button class="nav-item" data-section="reportar" onclick="mostrarSeccion('reportar')">
+                        <span>⚠️</span> Reportar
+                    </button>
+
+                </nav>
+
+                <div class="sidebar-footer">
+                    <button class="btn-cerrar" onclick="window.location.href='../index.html'">Cerrar sesión</button>
+                </div>
+
+            </aside>
+
+            <!-- Content Area -->
+            <div class="admin-content">
+
+                <main class="admin-main">
+
+                    <!-- PEDIDOS -->
+                    <section id="pedidos" class="admin-section active">
+
+                        <div class="section-header">
+
+                            <h2 class="section-title">Pedidos:</h2>
+                                
+                            <div class="header-actions">
+                                
+                                <button id="btn-sonido" class="btn-icon" title="Activar/Desactivar sonido">🔔</button>
+
+                            </div>
+                        
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="cocina-stats" role="tablist" aria-label="Filtrar pedidos por estado">
+                    
+                            <button type="button" class="stat-card status-filter-button stat-pendiente is-active"
+                                    id="btn-estado-pendiente" data-estado-tab="pendiente"
+                                    role="tab" aria-selected="true" aria-controls="panel-pendiente">
+                    
+                                <span class="stat-num" id="stat-pendiente">0</span>
+                                <span class="stat-label">Pendientes</span>
+                    
+                            </button>
+                    
+                            <button type="button" class="stat-card status-filter-button stat-preparacion"
+                                    id="btn-estado-preparacion" data-estado-tab="preparacion"
+                                    role="tab" aria-selected="false" aria-controls="panel-preparacion" tabindex="-1">
+                    
+                                <span class="stat-num" id="stat-preparacion">0</span>
+                                <span class="stat-label">En preparación</span>
+                    
+                            </button>
+
+                            <button type="button" class="stat-card status-filter-button stat-completado"
+                                    id="btn-estado-completado" data-estado-tab="completado"
+                                    role="tab" aria-selected="false" aria-controls="panel-completado" tabindex="-1">
+                    
+                                <span class="stat-num" id="stat-completado">0</span>
+                                <span class="stat-label">Completados</span>
+                    
+                            </button>
+
+                            <button type="button" class="stat-card status-filter-button stat-cancelado"
+                                    id="btn-estado-cancelado" data-estado-tab="cancelado"
+                                    role="tab" aria-selected="false" aria-controls="panel-cancelado" tabindex="-1">
+
+                                <span class="stat-num" id="stat-cancelado">0</span>
+                                <span class="stat-label">Cancelados</span>
+
+                            </button>
+                    
+                        </div>
+
+                        <!-- Los botones con contadores de arriba filtran localmente estos pedidos. -->
+                        <!-- El panel visible depende del subbotón de estado seleccionado. -->
+                        <div class="cocina-kanban" id="cocina-kanban">
+
+                            <!-- PENDIENTES -->
+                            <section class="kanban-row" id="panel-pendiente" data-estado="pendiente"
+                                     role="tabpanel" aria-labelledby="btn-estado-pendiente">
+
+                                <div class="row-header">
+
+                                    <span class="column-dot dot-pendiente"></span>
+                                    <h3>Pendientes</h3>
+
+                                </div>
+
+                                <div class="row-body" id="row-pendiente">
+                                    <!-- Pedidos se inyectan aquí -->
+                                </div>
+
+                            </section>
+
+                            <!-- EN PREPARACIÓN -->
+                            <section class="kanban-row" id="panel-preparacion" data-estado="preparacion"
+                                     role="tabpanel" aria-labelledby="btn-estado-preparacion" hidden>
+
+                                <div class="row-header">
+
+                                    <span class="column-dot dot-preparacion"></span>
+                                    <h3>En preparación</h3>
+
+                                </div>
+
+                                <div class="row-body" id="row-preparacion">
+
+                                </div>
+
+                            </section>
+
+                            <!-- COMPLETADOS -->
+                            <section class="kanban-row" id="panel-completado" data-estado="completado"
+                                     role="tabpanel" aria-labelledby="btn-estado-completado" hidden>
+
+                                <div class="row-header">
+
+                                    <span class="column-dot dot-completado"></span>
+                                    <h3>Completados</h3>
+
+                                </div>
+
+                                <div class="row-body" id="row-completado">
+
+                                </div>
+
+                            </section>
+
+                            <!-- CANCELADOS -->
+                            <section class="kanban-row" id="panel-cancelado" data-estado="cancelado"
+                                     role="tabpanel" aria-labelledby="btn-estado-cancelado" hidden>
+
+                                <div class="row-header">
+
+                                    <span class="column-dot dot-cancelado"></span>
+                                    <h3>Cancelados</h3>
+
+                                </div>
+
+                                <div class="row-body" id="row-cancelado">
+
+                                </div>
+
+                            </section>
+
+                        </div>
+
+                    </section>
+
+                    <!-- REPORTAR -->
+                    <section id="reportar" class="admin-section">
+                 
+                        <div class="section-header">
+                 
+                            <h2 class="section-title">Reportar:</h2>
+                 
+                        </div>
+
+                        <div class="dash-card-reportes" id="Reportes">
+                                
+                            <iframe src="/reportes/Chat.html?rol=cocina" id="iframe-chat" title="Chat FogonClick"></iframe>        
+
+                        </div>
+
+                    </section>
+
+                </main>
+            
+            </div>
+        
+        </div>
+
+        <!-- Audio para notificación -->
+        <audio id="audio-nuevo" preload="auto">
+        
+            <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
+        
+        </audio>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+        
+            <div class="footer-content">
+        
+                <div class="footer-brand">
+        
+                    <span class="footer-logo">🔥 FogonClick</span>
+                    <span class="footer-version">v1.0</span>
+        
+                </div>
+        
+                <div class="footer-team">
+        
+                    <span>Desarrollado por <strong>Juan achuri</strong></span>
+                    <span>Y <strong>Matteo Figueroa</strong></span>
+        
+                </div>
+        
+                <div class="footer-links">
+        
+                    <a href="#">Términos de uso</a>
+                    <span>·</span>
+                    <a href="#">Privacidad</a>
+        
+                </div>
+        
+                <div class="footer-copy">
+        
+                    <span>© 2026 FogonClick. Todos los derechos reservados.</span>
+        
+                </div>
+        
+            </div>
+        
+        </footer>
+
+    </body>
+
+</html>

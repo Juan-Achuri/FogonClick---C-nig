@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="es">
+    
+    <head>
+    
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Administrador | FogonClick</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+        <script src="authFetch.js"></script>
+        <script src="Controllers/Administrador.js" defer></script>
+    
+        <link rel="stylesheet" href="Personalizacion.css">
+    <script src="personalizacion.js" defer></script>
+</head>
+    
+    <body>
+        
+        <div class="admin-layout">
+            
+            <!-- Sidebar -->
+            <aside class="admin-sidebar">
+            
+                <div class="sidebar-brand">
+            
+                    <span class="logo-fire"><i class="bi bi-fire" aria-hidden="true"></i></span>
+                    <h1>FogonClick</h1>
+            
+                </div>
+            
+                <nav class="sidebar-nav">
+            
+                    <button class="nav-item active" data-section="estadisticas" onclick="mostrarSeccion('estadisticas')">
+                        <span><i class="bi bi-bar-chart-line-fill" aria-hidden="true"></i></span> Estadisticas
+                    </button>
+            
+                    <button class="nav-item" data-section="empleados" onclick="mostrarSeccion('empleados')">
+                        <span><i class="bi bi-person-gear" aria-hidden="true"></i></span> Emplead@s
+                    </button>
+
+                    <button class="nav-item" data-section="proveedores" onclick="mostrarSeccion('proveedores')">
+                        <span><i class="bi bi-truck" aria-hidden="true"></i></span> Proveedores
+                    </button>
+
+                    <button class="nav-item" data-section="inventario" onclick="mostrarSeccion('inventario')">
+                        <span><i class="bi bi-box-seam" aria-hidden="true"></i></span> Insumos e inventario
+                    </button>
+
+                    <button class="nav-item" data-section="menu" onclick="mostrarSeccion('menu')">
+                        <span><i class="bi bi-egg-fried" aria-hidden="true"></i></span> Productos y Menú
+                    </button>
+                    
+                    <button class="nav-item" data-section="recetas" onclick="mostrarSeccion('recetas')">
+                        <span><i class="bi bi-journal-text" aria-hidden="true"></i></span> Recetas
+                    </button>
+                                      
+                    <button class="nav-item" data-section="facturas" onclick="mostrarSeccion('facturas')">
+                        <span><i class="bi bi-receipt" aria-hidden="true"></i></span> Facturas
+                    </button>
+                   
+                    <button class="nav-item" data-section="reportes" onclick="mostrarSeccion('reportes')">
+                        <span><i class="bi bi-graph-up-arrow" aria-hidden="true"></i></span> Reportes
+                   
+                    </button>
+
+                    <button class="nav-item" data-section="personalizacion" onclick="mostrarSeccion('personalizacion')">
+                        <span><i class="bi bi-palette" aria-hidden="true"></i></span> Personalización
+                    </button>
+
+                </nav>
+                
+                <div class="sidebar-footer">
+                    <button class="btn-cerrar" onclick="cerrarSesion()">Cerrar sesión</button>
+                </div>
+            
+            </aside>
+
+            <!-- Content Area -->
+            <div class="admin-content">
+               
+                <main class="admin-main">
+               
+                    <!-- Estadisticas -->
+                    <section id="estadisticas" class="admin-section active">
+                        
+                        <h2 class="section-title">Estadisticas:</h2>
+                        <br>
+
+                        <!-- Estadísticas - FILA 1 -->
+                        <div class="estadisticas-grid">
+
+                            <div class="dash-card">
+                            
+                                <span class="dash-icon"><i class="bi bi-cart-fill" aria-hidden="true"></i></span>
+                            
+                                <div class="dash-info">
+                                    <span class="dash-num" id="dash-pedidos">0</span>
+                                    <span class="dash-label">Pedidos hoy</span>
+                                </div>
+                            
+                            </div>
+                            
+                            <div class="dash-card">
+                            
+                                <span class="dash-icon"><i class="bi bi-cash-coin" aria-hidden="true"></i></span>
+                            
+                                <div class="dash-info">
+                                    <span class="dash-num" id="dash-ventas">$0</span>
+                                    <span class="dash-label">Ventas hoy</span>
+                                </div>
+                            
+                            </div>
+                            
+                            <div class="dash-card">
+                            
+                                <span class="dash-icon"><i class="bi bi-star-fill" aria-hidden="true"></i></span>
+                            
+                                <div class="dash-info">
+                                    <span class="dash-num" id="dash-top">-</span>
+                                    <span class="dash-label">Más vendido</span>
+                                </div>
+                            
+                            </div>
+                        
+                        </div>
+
+                        <br><br>
+
+                        <!-- Estadísticas - FILA 2 -->
+                        <div class="estadisticas-grid">
+                            
+                            <div class="dash-card">
+                            
+                                <span class="dash-icon"><i class="bi bi-currency-dollar" aria-hidden="true"></i></span>
+                            
+                                <div class="dash-info">
+                                    <span class="dash-num" id="dash-gastos">$0</span>
+                                    <span class="dash-label">Gastos</span>
+                                </div>
+                            
+                            </div>
+                            
+                            <div class="dash-card">
+                            
+                                <span class="dash-icon"><i class="bi bi-cash-coin" aria-hidden="true"></i></span>
+                            
+                                <div class="dash-info">
+                                    <span class="dash-num" id="dash-ingresos">$0</span>
+                                    <span class="dash-label">Ingresos</span>
+                                </div>
+                            
+                            </div>
+                            
+                            <div class="dash-card">
+                            
+                                <span class="dash-icon"><i class="bi bi-graph-up-arrow" aria-hidden="true"></i></span>
+                            
+                                <div class="dash-info">
+                                    <span class="dash-num" id="dash-ganancias">$0</span>
+                                    <span class="dash-label">Ganancias</span>
+                                </div>
+                            
+                            </div>
+                        
+                        </div>
+
+                    </section>
+
+                    <!-- EMPLEADOS -->
+                    <section id="empleados" class="admin-section">
+                        
+                        <div class="section-header">
+                            <h2 class="section-title">Empleados:</h2>
+                            
+                            <div class="header-actions">
+                                <button class="btn-secondary btn-sm" onclick="Form_Eliminar_Empleado()">Eliminar Empleado</button>
+                                <button class="btn-secondary btn-sm" onclick="Form_Editar_Empleado()">Editar Empleado</button>
+                                <button class="btn-primary btn-sm" onclick="Form_Agregar_Empleado()">+ Nuevo empleado</button>
+                            </div>
+
+                        </div>
+                        
+                        <div class="table-wrapper">
+                        
+                            <table class="table">
+                        
+                                <thead>
+                        
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre</th>
+                                        <th>Cédula</th>
+                                        <th>Correo</th>
+                                        <th>Contraseña</th>
+                                        <th>Rol</th>
+                                        <th>Telefono</th>
+                                    </tr>
+                        
+                                </thead>
+                        
+                                <tbody id="tabla-empleados"></tbody>
+                        
+                            </table>
+                        
+                        </div>
+                    
+                    </section>
+
+                    <!-- PROVEEDORES -->
+                    <section id="proveedores" class="admin-section">
+                        
+                        <div class="section-header">
+                        
+                            <h2 class="section-title">Proveedores</h2>
+
+                            <div class="header-actions">
+                               
+                                <button class="btn-secondary btn-sm" onclick="Eliminar_Proveedor()">Eliminar Proveedor</button>
+                                <button class="btn-secondary btn-sm" onclick="Editar_Proveedor()">Editar Proveedor</button>
+                                <button class="btn-primary btn-sm" onclick="Agregar_Proveedor()">+ Nuevo proveedor</button>
+                            
+                            </div>
+                        
+                        </div>
+                        
+                        <div class="table-wrapper">
+                        
+                            <table class="table">
+                        
+                                <thead>
+                        
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Nombre</th>
+                                        <th>Correo</th>
+                                        <th>Teléfono</th>
+                                    </tr>
+                        
+                                </thead>
+                        
+                                <tbody id="tabla-proveedores"></tbody>
+                        
+                            </table>
+                        
+                        </div>
+                    
+                    </section>
+                    
+                    <!-- INVENTARIO - INSUMOS -->
+                    <section id="inventario" class="admin-section">
+                        
+                        <div class="section-header">
+                            <h2 class="section-title">Insumos e Inventario</h2>
+                        
+                            <div class="header-actions">
+                               
+                                <button class="btn-secondary btn-sm" onclick="Eliminar_INSUMO()">Eliminar Insumo</button>
+                                <button class="btn-secondary btn-sm" onclick="Editar_INSUMO()">Editar Insumo</button>
+                                <button class="btn-primary btn-sm" onclick="Agregar_INSUMO()">+ Nuevo Insumo</button>
+                            
+                            </div>
+                        
+                        </div>
+                        
+                        <div class="table-wrapper">
+                            
+                            <table class="table">
+                            
+                                <thead>
+                            
+                                    <tr>
+                            
+                                        <th># ID</th>
+                                        <th>Nombre</th>
+                                        <th>Unidad</th>
+                                        <th>Stock</th>
+                                        <th>Fecha de vencimiento</th>
+                                        <th>Proveedor</th>
+                            
+                                    </tr>
+                            
+                                </thead>
+                            
+                                <tbody id="tabla-ingredientes"></tbody>
+                            
+                            </table>
+                        
+                        </div>
+                    
+                    </section>
+
+                    <!-- MENÚ - PRODUCTOS-->
+                    <section id="menu" class="admin-section">
+                        
+                        <div class="section-header">
+                            
+                            <h2 class="section-title">Productos y Menú</h2>
+                            
+                            <div class="header-actions">
+                               
+                                <button class="btn-secondary btn-sm" onclick="Eliminar_PRODUCTO()">Eliminar Producto</button>
+                                <button class="btn-secondary btn-sm" onclick="Editar_PRODUCTO()">Editar Producto</button>
+                                <button class="btn-primary btn-sm" onclick="Agregar_PRODUCTO()">+ Nuevo Producto</button>
+                            
+                            </div>
+                        
+                        </div>
+                        
+                        <div class="table-wrapper">
+                        
+                            <table class="table">
+                        
+                                <thead>
+                        
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Nombre</th>
+                                        <th>Descripción</th>
+                                    </tr>
+                        
+                                </thead>
+                        
+                                <tbody id="tabla-productos"></tbody>
+                        
+                            </table>
+                        
+                        </div>
+                    
+                    </section>
+                    
+                    <!-- RECETAS -->
+                    <section id="recetas" class="admin-section">
+                        
+                        <div class="section-header">
+                        
+                            <h2 class="section-title">Recetas</h2>
+                        
+                            <div class="header-actions">
+                              
+                                <button class="btn-secondary btn-sm" onclick="Eliminar_RECETA()">Eliminar Receta</button>
+                                <button class="btn-secondary btn-sm" onclick="Editar_RECETA()">Editar Receta</button>
+                                <button class="btn-primary btn-sm" onclick="Agregar_RECETA()">+ Nueva Receta</button>
+                            
+                            </div>
+                        
+                        </div>
+                        
+                        <div class="table-wrapper">
+                         
+                            <table class="table">
+                         
+                                <thead>
+                         
+                                    <tr>
+                                        <th># ID</th>
+                                        <th>Nombre</th>
+                                        <th>Producto</th>
+                                        <th>Descripción</th>
+                                    </tr>
+                         
+                                </thead>
+                                <tbody id="tabla-recetas"></tbody>
+                         
+                            </table>
+                        
+                        </div>
+                    
+                    </section>
+
+                    <!-- FACTURAS -->
+                    <section id="facturas" class="admin-section">
+                        
+                        <div class="section-header">
+                            
+                            <h2 class="section-title">Facturas</h2>
+                            
+                            <div class="filtro-fecha">
+                                
+                                <input type="date" id="hist-fecha" onchange="cargarFacturas()">
+                            
+                            </div>
+                        
+                        </div>
+                        
+                        <div class="table-wrapper">
+                            
+                            <table class="table">
+                                
+                                <thead>
+                                    
+                                    <tr>
+                                        <th># Id</th>
+                                        <th>Total</th>
+                                        <th>Fecha</th>
+                                        <th>PDF</th>
+                                    </tr>
+                                
+                                </thead>
+                                
+                                <tbody id="tabla-facturas"></tbody>
+                            
+                            </table>
+                        
+                        </div>
+
+                    </section>
+
+                    <!-- REPORTES -->
+                    <section id="reportes" class="admin-section">
+                        
+                        <div class="section-header">
+                            <h2 class="section-title">Reportes:</h2>
+                        </div>
+
+                        <div class="dash-card-reportes" id="Reportes">
+                            
+                            <iframe src="/reportes/Chat.html?rol=admin" id="iframe-chat" title="Chat FogonClick"></iframe>
+
+                        </div>
+
+                    </section>
+                    <!-- Personalización -->
+                    <section id="personalizacion" class="admin-section">
+                        <h2 class="section-title">Personalización</h2>
+                        <p>Personaliza la apariencia de FogonClick. Cada opción incluye una muestra visual.</p>
+
+                        <div class="form-group">
+                            <label>Colores y tema</label>
+                            <details class="personalizacion-combo" data-combo="tema">
+                                <summary><span class="personalizacion-placeholder">Tema del sistema</span><span class="personalizacion-actual" data-valor="predeterminado">Predeterminado FogonClick</span><span class="personalizacion-actual" data-valor="dispositivo">Seguir el tema del dispositivo</span><span class="personalizacion-actual" data-valor="claro">Claro</span><span class="personalizacion-actual" data-valor="oscuro">Oscuro</span><i class="bi bi-chevron-down" aria-hidden="true"></i></summary>
+                                <div class="personalizacion-opciones">
+                                    <label class="personalizacion-opcion"><input type="radio" name="tema" value="predeterminado" checked><span class="personalizacion-muestra"><strong>Predeterminado FogonClick</strong><span style="display:inline-block;margin-left:10px;padding:5px 10px;border-radius:8px;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);color:#fff;">Aa · aspecto actual</span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="tema" value="dispositivo"><span class="personalizacion-muestra"><strong>Seguir el tema del dispositivo</strong><span style="display:inline-block;margin-left:10px;padding:5px 10px;border-radius:8px;background:#303541;color:#F5F5F5;">Aa · automático</span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="tema" value="claro" ><span class="personalizacion-muestra"><strong>Claro</strong><span style="display:inline-block;margin-left:10px;padding:5px 10px;border-radius:8px;background:#F5EFE6;color:#3D2D25;">Aa · claro</span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="tema" value="oscuro" ><span class="personalizacion-muestra"><strong>Oscuro</strong><span style="display:inline-block;margin-left:10px;padding:5px 10px;border-radius:8px;background:#211C19;color:#F3EBDD;">Aa · oscuro</span></span></label>
+                                </div>
+                            </details>
+
+                            <label>Paleta de colores</label>
+                            <details class="personalizacion-combo" data-combo="paleta">
+                                <summary><span class="personalizacion-placeholder">Elige una paleta</span><span class="personalizacion-actual" data-valor="predeterminada">Predeterminada actual FogonClick</span>
+                                    <span class="personalizacion-actual" data-valor="fogon">Fogón clásico</span>
+                                    <span class="personalizacion-actual" data-valor="cacao">Cacao y crema</span>
+                                    <span class="personalizacion-actual" data-valor="huerta">Huerta fresca</span>
+                                    <span class="personalizacion-actual" data-valor="oliva">Oliva y limón</span>
+                                    <span class="personalizacion-actual" data-valor="mediterraneo">Mediterráneo y coral</span>
+                                    <span class="personalizacion-actual" data-valor="marino">Azul marino y trigo</span>
+                                    <span class="personalizacion-actual" data-valor="berenjena">Berenjena y durazno</span>
+                                    <span class="personalizacion-actual" data-valor="vino">Vino y arena</span>
+                                    <span class="personalizacion-actual" data-valor="mango">Mango y carbón</span>
+                                    <span class="personalizacion-actual" data-valor="jade">Jade y cobre</span>
+                                    <i class="bi bi-chevron-down" aria-hidden="true"></i>
+                                </summary>
+                                <div class="personalizacion-opciones">
+                                    <label class="personalizacion-opcion"><input type="radio" name="paleta-color" value="predeterminada" checked><span class="personalizacion-muestra"><strong>Predeterminada actual FogonClick</strong><span class="muestras-color"><span>Fondo y acento: </span><i title="Fondo #1a1a2e" style="background:#1a1a2e;"></i><i title="Medio #16213e" style="background:#16213e;"></i><i title="Profundo #0f3460" style="background:#0f3460;"></i><i title="Acento #e94560" style="background:#e94560;"></i></span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="paleta-color" value="fogon"><span class="personalizacion-muestra"><strong>Fogón clásico</strong><span class="muestras-color"><span>Claro: </span>
+<i title="Claro fondo" style="background:#F7F1E8;"></i><i title="Claro superficie" style="background:#FFFDF8;"></i><i title="Claro texto" style="background:#35251F;"></i><i title="Claro acento" style="background:#A7472D;"></i></span><span class="muestras-color"><span>Oscuro: </span>
+<i title="Oscuro fondo" style="background:#211B19;"></i><i title="Oscuro superficie" style="background:#302522;"></i><i title="Oscuro texto" style="background:#F5EBDD;"></i><i title="Oscuro acento" style="background:#E27B50;"></i></span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="paleta-color" value="cacao"><span class="personalizacion-muestra"><strong>Cacao y crema</strong><span class="muestras-color"><span>Claro: </span>
+<i title="Claro fondo" style="background:#F5EFE6;"></i><i title="Claro superficie" style="background:#FFFCF7;"></i><i title="Claro texto" style="background:#3D2D25;"></i><i title="Claro acento" style="background:#8A5B43;"></i></span><span class="muestras-color"><span>Oscuro: </span>
+<i title="Oscuro fondo" style="background:#211C19;"></i><i title="Oscuro superficie" style="background:#332923;"></i><i title="Oscuro texto" style="background:#F3EBDD;"></i><i title="Oscuro acento" style="background:#C28A65;"></i></span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="paleta-color" value="huerta"><span class="personalizacion-muestra"><strong>Huerta fresca</strong><span class="muestras-color"><span>Claro: </span>
+<i title="Claro fondo" style="background:#F1F4EC;"></i><i title="Claro superficie" style="background:#FCFDF9;"></i><i title="Claro texto" style="background:#26372E;"></i><i title="Claro acento" style="background:#56765A;"></i></span><span class="muestras-color"><span>Oscuro: </span>
+<i title="Oscuro fondo" style="background:#1B221E;"></i><i title="Oscuro superficie" style="background:#29352D;"></i><i title="Oscuro texto" style="background:#E7EFE5;"></i><i title="Oscuro acento" style="background:#91AD83;"></i></span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="paleta-color" value="oliva"><span class="personalizacion-muestra"><strong>Oliva y limón</strong><span class="muestras-color"><span>Claro: </span>
+<i title="Claro fondo" style="background:#F4F2E8;"></i><i title="Claro superficie" style="background:#FFFDF5;"></i><i title="Claro texto" style="background:#34372A;"></i><i title="Claro acento" style="background:#777A43;"></i></span><span class="muestras-color"><span>Oscuro: </span>
+<i title="Oscuro fondo" style="background:#202118;"></i><i title="Oscuro superficie" style="background:#303126;"></i><i title="Oscuro texto" style="background:#F0EFDE;"></i><i title="Oscuro acento" style="background:#C2BE73;"></i></span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="paleta-color" value="mediterraneo"><span class="personalizacion-muestra"><strong>Mediterráneo y coral</strong><span class="muestras-color"><span>Claro: </span>
+<i title="Claro fondo" style="background:#EFF4F3;"></i><i title="Claro superficie" style="background:#FBFDFC;"></i><i title="Claro texto" style="background:#253A3C;"></i><i title="Claro acento" style="background:#B95F4C;"></i></span><span class="muestras-color"><span>Oscuro: </span>
+<i title="Oscuro fondo" style="background:#192326;"></i><i title="Oscuro superficie" style="background:#273336;"></i><i title="Oscuro texto" style="background:#E7F1EF;"></i><i title="Oscuro acento" style="background:#E28B72;"></i></span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="paleta-color" value="marino"><span class="personalizacion-muestra"><strong>Azul marino y trigo</strong><span class="muestras-color"><span>Claro: </span>
+<i title="Claro fondo" style="background:#F0F3F6;"></i><i title="Claro superficie" style="background:#FCFDFE;"></i><i title="Claro texto" style="background:#263547;"></i><i title="Claro acento" style="background:#A9783F;"></i></span><span class="muestras-color"><span>Oscuro: </span>
+<i title="Oscuro fondo" style="background:#1A2029;"></i><i title="Oscuro superficie" style="background:#282F3A;"></i><i title="Oscuro texto" style="background:#EAF0F5;"></i><i title="Oscuro acento" style="background:#D1A46A;"></i></span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="paleta-color" value="berenjena"><span class="personalizacion-muestra"><strong>Berenjena y durazno</strong><span class="muestras-color"><span>Claro: </span>
+<i title="Claro fondo" style="background:#F5F0F2;"></i><i title="Claro superficie" style="background:#FFFCFD;"></i><i title="Claro texto" style="background:#3B2A35;"></i><i title="Claro acento" style="background:#A76055;"></i></span><span class="muestras-color"><span>Oscuro: </span>
+<i title="Oscuro fondo" style="background:#241D23;"></i><i title="Oscuro superficie" style="background:#352931;"></i><i title="Oscuro texto" style="background:#F5EAF0;"></i><i title="Oscuro acento" style="background:#D58C7D;"></i></span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="paleta-color" value="vino"><span class="personalizacion-muestra"><strong>Vino y arena</strong><span class="muestras-color"><span>Claro: </span>
+<i title="Claro fondo" style="background:#F5F0EC;"></i><i title="Claro superficie" style="background:#FFFCF8;"></i><i title="Claro texto" style="background:#3D292B;"></i><i title="Claro acento" style="background:#8D4C4D;"></i></span><span class="muestras-color"><span>Oscuro: </span>
+<i title="Oscuro fondo" style="background:#241D20;"></i><i title="Oscuro superficie" style="background:#35292B;"></i><i title="Oscuro texto" style="background:#F3E9E2;"></i><i title="Oscuro acento" style="background:#C77A72;"></i></span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="paleta-color" value="mango"><span class="personalizacion-muestra"><strong>Mango y carbón</strong><span class="muestras-color"><span>Claro: </span>
+<i title="Claro fondo" style="background:#F5F2EB;"></i><i title="Claro superficie" style="background:#FFFDFA;"></i><i title="Claro texto" style="background:#34312B;"></i><i title="Claro acento" style="background:#B87925;"></i></span><span class="muestras-color"><span>Oscuro: </span>
+<i title="Oscuro fondo" style="background:#22201C;"></i><i title="Oscuro superficie" style="background:#33302A;"></i><i title="Oscuro texto" style="background:#F1EDE4;"></i><i title="Oscuro acento" style="background:#D99A3D;"></i></span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="paleta-color" value="jade"><span class="personalizacion-muestra"><strong>Jade y cobre</strong><span class="muestras-color"><span>Claro: </span>
+<i title="Claro fondo" style="background:#EFF4F1;"></i><i title="Claro superficie" style="background:#FCFDFC;"></i><i title="Claro texto" style="background:#253A35;"></i><i title="Claro acento" style="background:#A56745;"></i></span><span class="muestras-color"><span>Oscuro: </span>
+<i title="Oscuro fondo" style="background:#19221F;"></i><i title="Oscuro superficie" style="background:#28332F;"></i><i title="Oscuro texto" style="background:#E8F0EB;"></i><i title="Oscuro acento" style="background:#D18B62;"></i></span></span></label>
+                                </div>
+                            </details>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Estilo de iconos Bootstrap</label>
+                            <details class="personalizacion-combo" data-combo="iconos">
+                                <summary><span class="personalizacion-placeholder">Elige un estilo de iconos</span><span class="personalizacion-actual" data-valor="predeterminado">Predeterminado actual FogonClick</span>
+                                    <span class="personalizacion-actual" data-valor="clasico">Clásico</span>
+                                    <span class="personalizacion-actual" data-valor="lineal">Lineal</span>
+                                    <span class="personalizacion-actual" data-valor="minimalista">Minimalista</span>
+                                    <span class="personalizacion-actual" data-valor="circular">Circular</span>
+                                    <span class="personalizacion-actual" data-valor="cuadrado">Cuadrado</span>
+                                    <span class="personalizacion-actual" data-valor="suave">Suave</span>
+                                    <span class="personalizacion-actual" data-valor="divertido">Divertido</span>
+                                    <span class="personalizacion-actual" data-valor="elegante">Elegante</span>
+                                    <span class="personalizacion-actual" data-valor="calido">Cálido</span>
+                                    <span class="personalizacion-actual" data-valor="monocromatico">Monocromático</span>
+                                    <i class="bi bi-chevron-down" aria-hidden="true"></i>
+                                </summary>
+                                <div class="personalizacion-opciones">
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-iconos" value="predeterminado" checked><span class="personalizacion-muestra"><strong>Predeterminado actual FogonClick</strong><span class="muestra-icono"><i class="bi bi-shop-window" aria-hidden="true"></i> FogonClick <i class="bi bi-cup-hot-fill" aria-hidden="true"></i> Pedido <i class="bi bi-bag-check-fill" aria-hidden="true"></i> Listo</span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-iconos" value="clasico"><span class="personalizacion-muestra"><strong>Clásico</strong><span class="muestra-icono"><i class="bi bi-cup-hot-fill" aria-hidden="true" style=""></i> Pedido de restaurante</span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-iconos" value="lineal"><span class="personalizacion-muestra"><strong>Lineal</strong><span class="muestra-icono"><i class="bi bi-cup-hot" aria-hidden="true" style=""></i> Pedido de restaurante</span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-iconos" value="minimalista"><span class="personalizacion-muestra"><strong>Minimalista</strong><span class="muestra-icono"><i class="bi bi-dot" aria-hidden="true" style="font-size:1.3rem;"></i> Pedido de restaurante</span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-iconos" value="circular"><span class="personalizacion-muestra"><strong>Circular</strong><span class="muestra-icono"><i class="bi bi-cup-hot-fill" aria-hidden="true" style="display:inline-block;padding:7px;border:1px solid currentColor;border-radius:50%;"></i> Pedido de restaurante</span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-iconos" value="cuadrado"><span class="personalizacion-muestra"><strong>Cuadrado</strong><span class="muestra-icono"><i class="bi bi-cup-hot-fill" aria-hidden="true" style="display:inline-block;padding:7px;border:1px solid currentColor;border-radius:5px;"></i> Pedido de restaurante</span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-iconos" value="suave"><span class="personalizacion-muestra"><strong>Suave</strong><span class="muestra-icono"><i class="bi bi-cup-hot-fill" aria-hidden="true" style="color:#91AD83;"></i> Pedido de restaurante</span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-iconos" value="divertido"><span class="personalizacion-muestra"><strong>Divertido</strong><span class="muestra-icono"><i class="bi bi-emoji-smile" aria-hidden="true" style="color:#D99A3D;"></i> Pedido de restaurante</span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-iconos" value="elegante"><span class="personalizacion-muestra"><strong>Elegante</strong><span class="muestra-icono"><i class="bi bi-cup-hot" aria-hidden="true" style="text-shadow:0 2px 4px rgba(0,0,0,.45);"></i> Pedido de restaurante</span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-iconos" value="calido"><span class="personalizacion-muestra"><strong>Cálido</strong><span class="muestra-icono"><i class="bi bi-cup-hot-fill" aria-hidden="true" style="color:#E27B50;"></i> Pedido de restaurante</span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-iconos" value="monocromatico"><span class="personalizacion-muestra"><strong>Monocromático</strong><span class="muestra-icono"><i class="bi bi-cup-hot" aria-hidden="true" style="color:#89909C;"></i> Pedido de restaurante</span></span></label>
+                                </div>
+                            </details>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Estilo de página</label>
+                            <details class="personalizacion-combo" data-combo="pagina">
+                                <summary><span class="personalizacion-placeholder">Elige un estilo de página</span><span class="personalizacion-actual" data-valor="predeterminado">Predeterminado FogonClick</span>
+                                    <span class="personalizacion-actual" data-valor="transparente">Transparente</span>
+                                    <span class="personalizacion-actual" data-valor="solido">Sólido</span>
+                                    <span class="personalizacion-actual" data-valor="sombreado">Con sombras</span>
+                                    <span class="personalizacion-actual" data-valor="esquinas">Esquinas suaves</span>
+                                    <span class="personalizacion-actual" data-valor="delineado">Bordes delineados</span>
+                                    <span class="personalizacion-actual" data-valor="elevado">Tarjetas elevadas</span>
+                                    <span class="personalizacion-actual" data-valor="compacto">Compacto</span>
+                                    <span class="personalizacion-actual" data-valor="aireado">Aireado</span>
+                                    <span class="personalizacion-actual" data-valor="minimalista">Minimalista</span>
+                                    <span class="personalizacion-actual" data-valor="separadores">Con separadores</span>
+                                    <i class="bi bi-chevron-down" aria-hidden="true"></i>
+                                </summary>
+                                <div class="personalizacion-opciones">
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-pagina" value="predeterminado" checked><span class="personalizacion-muestra"><strong>Predeterminado FogonClick</strong><span class="descripcion-estilo">Fondo degradado, menú translúcido y cajas suaves</span><span class="muestra-pagina" data-vista="predeterminado"><span class="muestra-menu">Menú</span><span class="muestra-contenido">Nombre e icono <i class="bi bi-cup-hot-fill" aria-hidden="true"></i></span></span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-pagina" value="transparente"><span class="personalizacion-muestra"><strong>Transparente</strong><span class="descripcion-estilo">Menú y superficies translúcidas</span><span class="muestra-pagina" data-vista="transparente"><span class="muestra-menu">Menú</span><span class="muestra-contenido">Nombre e icono <i class="bi bi-cup-hot-fill" aria-hidden="true"></i></span></span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-pagina" value="solido"><span class="personalizacion-muestra"><strong>Sólido</strong><span class="descripcion-estilo">Superficies opacas, sin efecto de transparencia</span><span class="muestra-pagina" data-vista="solido"><span class="muestra-menu">Menú</span><span class="muestra-contenido">Nombre e icono <i class="bi bi-cup-hot-fill" aria-hidden="true"></i></span></span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-pagina" value="sombreado"><span class="personalizacion-muestra"><strong>Con sombras</strong><span class="descripcion-estilo">Sombra en superficies, nombres e iconos</span><span class="muestra-pagina" data-vista="sombreado"><span class="muestra-menu">Menú</span><span class="muestra-contenido">Nombre e icono <i class="bi bi-cup-hot-fill" aria-hidden="true"></i></span></span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-pagina" value="esquinas"><span class="personalizacion-muestra"><strong>Esquinas suaves</strong><span class="descripcion-estilo">Radio amplio en menú y cajas</span><span class="muestra-pagina" data-vista="esquinas"><span class="muestra-menu">Menú</span><span class="muestra-contenido">Nombre e icono <i class="bi bi-cup-hot-fill" aria-hidden="true"></i></span></span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-pagina" value="delineado"><span class="personalizacion-muestra"><strong>Bordes delineados</strong><span class="descripcion-estilo">Contorno visible alrededor de las superficies</span><span class="muestra-pagina" data-vista="delineado"><span class="muestra-menu">Menú</span><span class="muestra-contenido">Nombre e icono <i class="bi bi-cup-hot-fill" aria-hidden="true"></i></span></span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-pagina" value="elevado"><span class="personalizacion-muestra"><strong>Tarjetas elevadas</strong><span class="descripcion-estilo">Cajas diferenciadas con elevación</span><span class="muestra-pagina" data-vista="elevado"><span class="muestra-menu">Menú</span><span class="muestra-contenido">Nombre e icono <i class="bi bi-cup-hot-fill" aria-hidden="true"></i></span></span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-pagina" value="compacto"><span class="personalizacion-muestra"><strong>Compacto</strong><span class="descripcion-estilo">Menos espacio entre elementos</span><span class="muestra-pagina" data-vista="compacto"><span class="muestra-menu">Menú</span><span class="muestra-contenido">Nombre e icono <i class="bi bi-cup-hot-fill" aria-hidden="true"></i></span></span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-pagina" value="aireado"><span class="personalizacion-muestra"><strong>Aireado</strong><span class="descripcion-estilo">Más espacio alrededor de textos y controles</span><span class="muestra-pagina" data-vista="aireado"><span class="muestra-menu">Menú</span><span class="muestra-contenido">Nombre e icono <i class="bi bi-cup-hot-fill" aria-hidden="true"></i></span></span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-pagina" value="minimalista"><span class="personalizacion-muestra"><strong>Minimalista</strong><span class="descripcion-estilo">Superficies limpias con pocos bordes</span><span class="muestra-pagina" data-vista="minimalista"><span class="muestra-menu">Menú</span><span class="muestra-contenido">Nombre e icono <i class="bi bi-cup-hot-fill" aria-hidden="true"></i></span></span></span></label>
+                                    <label class="personalizacion-opcion"><input type="radio" name="estilo-pagina" value="separadores"><span class="personalizacion-muestra"><strong>Con separadores</strong><span class="descripcion-estilo">Líneas entre áreas del menú y contenido</span><span class="muestra-pagina" data-vista="separadores"><span class="muestra-menu">Menú</span><span class="muestra-contenido">Nombre e icono <i class="bi bi-cup-hot-fill" aria-hidden="true"></i></span></span></span></label>
+                                </div>
+                            </details>
+                        </div>
+
+                    
+                        <div class="personalizacion-confirmacion"><
+                            <p id="estado-personalizacion" aria-live="polite">Los cambios solo se aplican al confirmarlos.</p>
+                            <button type="button" id="btn-confirmar-personalizacion" class="btn-primary" disabled><i class="bi bi-check2-circle" aria-hidden="true"></i> Confirmar cambios</button>
+                        </div>
+</section>
+
+
+                </main>
+            </div>
+        </div>
+
+        <!-- AGREGAR EMPLEADO -->
+        <div class="modal-overlay" id="modal-empleado">
+            
+            <div class="modal-admin">
+            
+                <div class="modal-header">
+            
+                    <h3 id="emp-modal-titulo">Registrar Empleado:</h3>
+                    <button class="modal-close" onclick="cerrarModal('modal-empleado')"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+            
+                </div>
+            
+                <form id="form-empleado" onsubmit="guardarEmpleado(event)">
+            
+                    <input type="hidden" id="emp-id">
+            
+                    <div class="form-group">
+                      
+                        <label>Nombre completo:</label>
+                        <input type="text" id="emp-nombre" placeholder="Camilo Sanchez" required>
+                    
+                    </div>
+            
+                    <div class="form-group">
+                    
+                        <label>Rol:</label>
+                    
+                        <select id="emp-rol" required>
+                            <option value="" selected disabled>-- Elige un rol --</option>
+                            <option value="2">Cocina</option>
+                            <option value="3">Caja</option>
+                        </select>
+                    
+                    </div>
+                    
+                    <div class="form-group">
+                    
+                        <label for="reg-cedula">Cédula:</label>
+                        <input type="text" inputmode="numeric" id="reg-cedula" name="cedula" placeholder="1234567890" required>
+                    
+                    </div>
+
+                    <div class="form-group">
+                    
+                        <label>Teléfono:</label>
+                        <input type="text" id="emp-telefono" placeholder="3105551122" required>
+                    
+                    </div>
+
+                    <div class="form-group">
+                    
+                        <label>Correo electrónico:</label>
+                        <input type="email" id="emp-correo" placeholder="correo@ejemplo.com" required>
+                    
+                    </div>
+                    
+                    <div class="form-group" id="emp-password-group">
+                    
+                        <label>Contraseña:</label>
+                        <input type="password" id="emp-password" placeholder="••••••••" required>
+                    
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Guardar</button>
+                
+                </form>
+            
+            </div>
+        
+        </div>
+
+        <!-- EDITAR EMPLEADO -->
+        <div class="modal-overlay" id="modal-editar-empleado">
+           
+            <div class="modal-admin">
+           
+                <div class="modal-header">
+           
+                    <h3>Editar Empleado</h3>
+                    <button class="modal-close" onclick="cerrarModal('modal-editar-empleado')"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+           
+                </div>
+           
+                <form id="form-editar-empleado" onsubmit="guardarEdicionEmpleado(event)">
+           
+                    <input type="hidden" id="edit-emp-id">
+
+                    <div class="form-group form-group-centered">
+           
+                        <p class="hint-danger">
+                            <strong class="label-warning"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> Recuerde:</strong>
+                            Para editar un empleado debe modificar el contenido del campo que desea actualizar.
+                        </p>
+           
+                    </div>
+                    
+                    <div class="form-group">
+           
+                        <label>Seleccionar empleado:</label>
+           
+                        <select id="edit-emp-selector" onchange="onCambiarEmpleadoEditar()" required>
+                            <option value="">-- Elige un empleado --</option>
+                        </select>
+           
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Cédula:</label>
+                        <input type="text" inputmode="numeric" id="edit-emp-cedula" placeholder="Número de documento">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Nombre completo:</label>
+                        <input type="text" id="edit-emp-nombre">
+           
+                    </div>
+
+                    <div class="form-group">
+           
+                        <label>Rol:</label>
+           
+                        <select id="edit-emp-rol">
+           
+                            <option value="">-- Conservar actual --</option>
+                            <option value="2">Cocina</option>
+                            <option value="3">Caja</option>
+           
+                        </select>
+           
+                    </div>
+
+                    <div class="form-group">
+           
+                        <label>Correo electrónico:</label>
+                        <input type="email" id="edit-emp-correo">
+           
+                    </div>
+
+                    <div class="form-group">
+           
+                        <label>Teléfono:</label>
+                        <input type="text" id="edit-emp-telefono" placeholder="Dejar vacío para no cambiar">
+           
+                    </div>
+
+                    <div class="form-group">
+           
+                        <label>Contraseña:</label>
+                        <input type="password" id="edit-emp-password" placeholder="Dejar vacío para no cambiar">
+           
+                    </div>
+
+                    <button type="submit" class="btn-primary">Guardar cambios</button>
+                    
+                </form>
+           
+            </div>
+        
+        </div>
+         
+        <!-- ELIMINAR EMPLEADO -->
+        <div class="modal-overlay" id="modal-eliminar-empleado">
+            
+            <div class="modal-admin">
+            
+                <div class="modal-header">
+            
+                    <h3>Eliminar Empleado</h3>
+                    <button class="modal-close" onclick="cerrarModal('modal-eliminar-empleado')"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+            
+                </div>
+            
+                <form id="form-eliminar-empleado" onsubmit="confirmarEliminarEmpleado(event)">
+                    
+                    <div class="form-group">
+            
+                        <label>Seleccionar empleado a eliminar:</label>
+            
+                        <select id="elim-emp-selector" onchange="onCambiarEmpleadoEliminar()" required>
+                            <option value="">-- Elige un empleado --</option>
+                        </select>
+            
+                        <input type="hidden" id="elim-emp-id">
+            
+                    </div>
+
+                    <div class="form-group form-group-centered">
+            
+                        <label class="label-warning"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> Esta acción no se puede deshacer</label>
+            
+                        <p class="hint-danger">
+                            El empleado será eliminado permanentemente de la base de datos.
+                        </p>
+            
+                    </div>
+
+                    <button type="submit" class="btn-primary" >Eliminar</button>
+            
+                </form>
+            
+            </div>
+        
+        </div>       
+
+        <!-- AGREGAR PROVEEDOR -->
+        <div class="modal-overlay" id="modal-proveedor">
+
+            <div class="modal-admin">
+
+                <div class="modal-header">
+
+                    <h3 id="prov-modal-titulo">Nuevo Proveedor</h3>
+                    <button class="modal-close" onclick="cerrarModal('modal-proveedor')"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+
+                </div>
+
+                <form id="form-proveedor" onsubmit="guardarProveedor(event)">
+
+                    <input type="hidden" id="prov-id">
+
+                    <div class="form-group">
+                     
+                        <label>Nombre del proveedor:</label>
+                        <input type="text" id="prov-nombre" placeholder="Distribuidora ABC" required>
+                    
+                    </div>
+
+                    <div class="form-group">
+                    
+                        <label>Correo electrónico:</label>
+                        <input type="email" id="prov-correo" placeholder="contacto@proveedor.com">
+                    
+                    </div>
+
+                    <div class="form-group">
+                    
+                        <label>Teléfono:</label>
+                        <input type="tel" id="prov-telefono" placeholder="3105551122">
+                    
+                    </div>
+
+                    <button type="submit" class="btn-primary">Guardar</button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <!-- ELIMINAR PROVEEDOR -->
+        <div class="modal-overlay" id="modal-eliminar-proveedor">
+          
+            <div class="modal-admin">
+          
+                <div class="modal-header">
+          
+                    <h3>Eliminar Proveedor</h3>
+                    <button class="modal-close" onclick="cerrarModal('modal-eliminar-proveedor')"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+          
+                </div>
+          
+                <form id="form-eliminar-proveedor" onsubmit="confirmarEliminarProveedor(event)">
+                    
+                    <div class="form-group">
+          
+                        <label>Seleccionar proveedor a eliminar:</label>
+          
+                        <select id="elim-prov-selector" onchange="onCambiarProveedorEliminar()" required>
+                            <option value="">-- Elige un proveedor --</option>
+                        </select>
+          
+                        <input type="hidden" id="elim-prov-id">
+          
+                    </div>
+
+                    <div class="form-group form-group-centered">
+          
+                        <label class="label-warning"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> Esta acción no se puede deshacer</label>
+          
+                        <p class="hint-danger">
+                            El proveedor será eliminado permanentemente de la base de datos.
+                        </p>
+          
+                    </div>
+
+                    <button type="submit" class="btn-primary">Eliminar</button>
+          
+                </form>
+          
+            </div>
+        
+        </div>
+
+        <!-- EDITAR PROVEEDOR -->
+        <div class="modal-overlay" id="modal-editar-proveedor">
+       
+            <div class="modal-admin">
+       
+                <div class="modal-header">
+       
+                    <h3>Editar Proveedor</h3>
+                    <button class="modal-close" onclick="cerrarModal('modal-editar-proveedor')"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+       
+                </div>
+       
+                <form id="form-editar-proveedor" onsubmit="guardarEdicionProveedor(event)">
+       
+                    <input type="hidden" id="edit-prov-id">
+
+                    <div class="form-group form-group-centered">
+       
+                        <p class="hint-danger">
+                            <strong class="label-warning"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> Recuerde:</strong>
+                            Para editar un proveedor debe modificar el contenido del campo que
+                            desea actualizar.
+                        </p>
+                    </div>
+                    
+                    <div class="form-group">
+       
+                        <label>Seleccionar proveedor:</label>
+       
+                        <select id="edit-prov-selector" onchange="onCambiarProveedorEditar()" required>
+                            <option value="">-- Elige un proveedor --</option>
+                        </select>
+       
+                    </div>
+
+                    <div class="form-group">
+       
+                        <label>Nombre del proveedor:</label>
+                        <input type="text" id="edit-prov-nombre">
+       
+                    </div>
+
+                    <div class="form-group">
+       
+                        <label>Correo electrónico:</label>
+                        <input type="email" id="edit-prov-correo">
+       
+                    </div>
+
+                    <div class="form-group">
+       
+                        <label>Teléfono:</label>
+                        <input type="text" id="edit-prov-telefono">
+       
+                    </div>
+
+                    <button type="submit" class="btn-primary">Guardar cambios</button>
+                    
+                </form>
+            </div>
+        </div>
+
+        <!-- AGREGAR INSUMOS -->
+        <div class="modal-overlay" id="modal-ingrediente">
+       
+            <div class="modal-admin">
+       
+                <div class="modal-header">
+       
+                    <h3 id="ing-modal-titulo">Nuevo Ingrediente</h3>
+                    <button class="modal-close" onclick="cerrarModal('modal-ingrediente')"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+       
+                </div>
+       
+                <form id="form-ingrediente" onsubmit="guardarIngrediente(event)">
+       
+                    <input type="hidden" id="ing-id">
+
+                    <div class="form-group">
+       
+                        <label>Nombre:</label>
+                        <input type="text" id="ing-nombre" placeholder="Harina de trigo" required>
+       
+                    </div> 
+
+                    <div class="form-group checkbox-inline">
+       
+                        <input type="checkbox" id="ing-es-directo" onchange="toggleProductoDirecto()">
+                        <label for="ing-es-directo">¿Es producto directo? (No requiere receta)</label>
+       
+                    </div>
+
+                    <div class="two-columns">
+       
+                        <div class="form-group">
+       
+                            <label>Unidad:</label>
+                            <input type="text" id="ing-unidad" placeholder="gr, ml, kg, unidad" required>
+       
+                        </div>
+       
+                        <div class="form-group">
+       
+                            <label>Stock:</label>
+                            <input type="number" id="ing-stock" step="0.01" placeholder="0.00" required>
+       
+                        </div>
+       
+                    </div>
+
+                    <div class="form-group">
+       
+                        <label>Proveedor (opcional):</label>
+       
+                        <select id="ing-proveedor">
+                            <option value="">-- Sin proveedor --</option>
+                        </select>
+       
+                    </div>
+
+                    <div class="form-group">
+       
+                        <label>Fecha de vencimiento:</label>
+                        <input type="date" id="ing-fecha-vencimiento" required>
+       
+                    </div>
+
+                    <div class="form-group">
+       
+                        <label>Costo total de compra:</label>
+                        <input type="number" id="ing-costo" step="0.01" placeholder="Ej: 50000" required>
+       
+                    </div>
+
+                    <div id="campos-directo" style="display:none;">
+       
+                        <div class="form-group">
+                            <label>Precio de venta:</label>
+                            <input type="number" id="ing-precio" step="0.01" placeholder="0.00" >
+                        </div>
+                        
+                        <div class="form-group">
+       
+                            <label>Categoría:</label>
+       
+                            <select id="ing-categoria" onchange="toggleNuevaCategoriaInsumo()" >
+                                <option value="">-- Selecciona --</option>
+                                <option value="Bebida">Bebida</option>
+                                <option value="Comida">Comida</option>
+                                <option value="Adicionales">Adicionales</option>
+                                <option value="__nueva__">+ Crear nueva categoría...</option>
+                            </select>
+       
+                            <input type="text" id="ing-categoria-nueva" placeholder="Escribe la nueva categoría" 
+                                style="display:none; margin-top:8px;">
+       
+                        </div>
+
+                        <div class="form-group">
+       
+                            <label>Descripción:</label>
+                            <textarea id="ing-descripcion" rows="2"></textarea>
+       
+                        </div>
+
+                        <div class="form-group">
+       
+                            <label>Foto (URL):</label>
+                            <input type="text" id="ing-foto" placeholder="https://ejemplo.com/foto.jpg">
+       
+                        </div>
+       
+                    </div>
+
+                    <button type="submit" class="btn-primary">Guardar</button>
+       
+                </form>
+       
+            </div>
+       
+        </div>
+
+        <!-- ELIMINAR INSUMO -->
+        <div class="modal-overlay" id="modal-eliminar-insumo">
+        
+            <div class="modal-admin">
+        
+                <div class="modal-header">
+        
+                    <h3>Eliminar Insumo</h3>
+                    <button class="modal-close" onclick="cerrarModal('modal-eliminar-insumo')"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+        
+                </div>
+        
+                <form id="form-eliminar-insumo" onsubmit="confirmarEliminarInsumo(event)">
+                    
+                    <div class="form-group">
+        
+                        <label>Seleccionar insumo a eliminar:</label>
+        
+                        <select id="elim-insumo-selector" onchange="onCambiarInsumoEliminar()" required>
+                            <option value="">-- Elige un insumo --</option>
+                        </select>
+        
+                        <input type="hidden" id="elim-insumo-id">
+        
+                    </div>
+
+                    <div class="form-group form-group-centered">
+        
+                        <label class="label-warning"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> Esta acción no se puede deshacer</label>
+        
+                        <p class="hint-danger">
+                            El insumo será eliminado permanentemente de la base de datos.
+                        </p>
+        
+                    </div>
+
+                    <button type="submit" class="btn-primary">Eliminar</button>
+        
+                </form>
+        
+            </div>
+        
+        </div>
+
+        <!-- EDITAR INSUMO -->
+        <div class="modal-overlay" id="modal-editar-insumo">
+        
+            <div class="modal-admin">
+        
+                <div class="modal-header">
+        
+                    <h3>Editar Insumo</h3>
+                    <button class="modal-close" onclick="cerrarModal('modal-editar-insumo')"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+        
+                </div>
+        
+                <form id="form-editar-insumo" onsubmit="guardarEdicionInsumo(event)">
+        
+                    <input type="hidden" id="edit-insumo-id">
+
+                    <div class="form-group form-group-centered">
+        
+                        <p class="hint-danger">
+                            <strong class="label-warning"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> Recuerde:</strong>
+                            Para editar un insumo debe modificar los campos que desea actualizar. 
+                            Ademas el sistema no permite cambiar la fecha de vencimiento de un insumo.
+                        </p>
+        
+                    </div>
+                    
+                    <div class="form-group">
+        
+                        <label>Seleccionar insumo:</label>
+        
+                        <select id="edit-insumo-selector" onchange="onCambiarInsumoEditar()" required>
+                            <option value="">-- Elige un insumo --</option>
+                        </select>
+        
+                    </div>
+
+                    <div class="form-group">
+        
+                        <label>Nombre:</label>
+                        <input type="text" id="edit-insumo-nombre">
+        
+                    </div>
+
+                    <div class="two-columns">
+        
+                        <div class="form-group">
+        
+                            <label>Unidad:</label>
+                            <input type="text" id="edit-insumo-unidad" placeholder="gr, ml, kg">
+        
+                        </div>
+        
+                        <div class="form-group">
+        
+                            <label>Stock:</label>
+                            <input type="number" id="edit-insumo-stock" step="0.01">
+        
+                        </div>
+        
+                    </div>
+
+                    <div class="form-group">
+        
+                        <label>Proveedor (opcional):</label>
+        
+                        <select id="edit-insumo-proveedor">
+                            <option value="">-- Conservar actual --</option>
+                            <option value="">-- Sin proveedor --</option>
+                        </select>
+        
+                    </div>
+
+                    <button type="submit" class="btn-primary">Guardar cambios</button>
+                    
+                </form>
+        
+            </div>
+        
+        </div>
+
+        <!-- AGREGAR PRODUCTO -->
+        <div class="modal-overlay" id="modal-producto">
+        
+            <div class="modal-admin">
+        
+                <div class="modal-header">
+        
+                    <h3 id="prod-modal-titulo">Nuevo Producto</h3>
+                    <button class="modal-close" onclick="cerrarModal('modal-producto')"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+        
+                </div>
+        
+                <form id="form-producto" onsubmit="guardarProducto(event)">
+        
+                    <input type="hidden" id="prod-id">
+
+                    <div class="form-group">
+        
+                        <label>Nombre:</label>
+                        <input type="text" id="prod-nombre" placeholder="Ej: Hamburguesa especial" required>
+        
+                    </div>
+
+                    <div class="form-group">
+        
+                        <label>Precio de Venta:</label>
+                        <input type="number" id="prod-precio" step="0.01" placeholder="0.00" required>
+        
+                    </div>
+
+                    <div class="form-group">
+        
+                        <label>Categoría:</label>
+        
+                        <select id="prod-categoria" onchange="toggleNuevaCategoria()" required>
+                            <option value="Comida">Comida</option>
+                            <option value="Bebida">Bebida</option>
+                            <option value="Adicionales">Adicionales</option>
+                            <option value="__nueva__">+ Crear nueva categoría...</option>
+                        </select>
+        
+                        <input type="text" id="prod-categoria-nueva" placeholder="Escribe la nueva categoría" 
+                            style="display:none; margin-top:8px;">
+        
+                    </div>
+
+                    <div class="form-group">
+        
+                        <label>Descripción:</label>
+                        <textarea id="prod-descripcion" rows="3" placeholder="Descripción del producto..."></textarea>
+        
+                    </div>
+
+                    <div class="form-group">
+        
+                        <label>Foto (URL):</label>
+                        <input type="text" id="prod-foto" placeholder="https://ejemplo.com/foto.jpg" required>
+        
+                    </div>
+
+                    <button type="submit" class="btn-primary">Guardar</button>
+        
+                </form>
+        
+            </div>
+        
+        </div>
+
+        <!-- ELIMINAR PRODUCTO -->
+        <div class="modal-overlay" id="modal-eliminar-producto">
+      
+            <div class="modal-admin">
+      
+                <div class="modal-header">
+      
+                    <h3>Eliminar Producto</h3>
+                    <button class="modal-close" onclick="cerrarModal('modal-eliminar-producto')"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+      
+                </div>
+      
+                <form id="form-eliminar-producto" onsubmit="confirmarEliminarProducto(event)">
+                    
+                    <div class="form-group">
+      
+                        <label>Seleccionar producto a eliminar:</label>
+      
+                        <select id="elim-prod-selector" onchange="onCambiarProductoEliminar()" required>
+                            <option value="">-- Elige un producto --</option>
+                        </select>
+      
+                        <input type="hidden" id="elim-prod-id">
+      
+                    </div>
+
+                    <div class="form-group form-group-centered">
+      
+                        <label class="label-warning"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> Esta acción no se puede deshacer</label>
+      
+                        <p class="hint-danger">
+                            El producto será eliminado permanentemente de la base de datos.
+                        </p>
+      
+                    </div>
+
+                    <button type="submit" class="btn-primary">Eliminar</button>
+      
+                </form>
+      
+            </div>
+      
+        </div>
+
+        <!-- EDITAR PRODUCTO -->
+        <div class="modal-overlay" id="modal-editar-producto">
+       
+            <div class="modal-admin">
+       
+                <div class="modal-header">
+       
+                    <h3>Editar Producto</h3>
+                    <button class="modal-close" onclick="cerrarModal('modal-editar-producto')"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+       
+                </div>
+       
+                <form id="form-editar-producto" onsubmit="guardarEdicionProducto(event)">
+       
+                    <input type="hidden" id="edit-prod-id">
+
+                    <div class="form-group form-group-centered">
+       
+                        <p class="hint-danger">
+                            <strong class="label-warning"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> Recuerde:</strong>
+                            Para editar un producto debe modificar los campos que desea actualizar.
+                        </p>
+       
+                    </div>
+                    
+                    <div class="form-group">
+       
+                        <label>Seleccionar producto:</label>
+       
+                        <select id="edit-prod-selector" onchange="onCambiarProductoEditar()" required>
+                            <option value="">-- Elige un producto --</option>
+                        </select>
+       
+                    </div>
+
+                    <div class="form-group">
+       
+                        <label>Nombre:</label>
+                        <input type="text" id="edit-prod-nombre">
+       
+                    </div>
+
+                    <div class="form-group">
+       
+                        <label>Precio de Venta:</label>
+                        <input type="number" id="edit-prod-precio" step="0.01">
+       
+                    </div>
+
+                    <div class="form-group">
+       
+                        <label>Categoría:</label>
+       
+                        <select id="edit-prod-categoria" onchange="toggleEditarCategoria()">
+                            <option value="">-- Conservar actual --</option>
+                            <option value="__nueva__">+ Crear nueva categoría...</option>
+                        </select>
+       
+                        <input type="text" id="edit-prod-categoria-nueva" placeholder="Escribe la nueva categoría" 
+                            style="display:none; margin-top:8px;">
+       
+                    </div>
+
+                    <div class="form-group">
+       
+                        <label>Descripción:</label>
+                        <textarea id="edit-prod-descripcion" rows="3"></textarea>
+       
+                    </div>
+
+                    <div class="form-group">
+       
+                        <label>Foto (URL):</label>
+                        <input type="text" id="edit-prod-foto">
+       
+                    </div>
+
+                    <button type="submit" class="btn-primary">Guardar cambios</button>
+       
+                </form>
+       
+            </div>
+       
+        </div>
+        
+        <!-- AGREGAR RECETA -->
+        <div class="modal-overlay" id="modal-receta-agregar">
+        
+            <div class="modal-admin">
+        
+                <div class="modal-header">
+        
+                    <h3 id="receta-modal-titulo">Nueva Receta</h3>
+                    <button class="modal-close" onclick="cerrarModal('modal-receta-agregar')"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+        
+                </div>
+        
+                <form id="form-receta-agregar" onsubmit="guardarReceta(event)">
+        
+                    <input type="hidden" id="receta-id">
+
+                    <div class="form-group">
+        
+                        <label>Producto:</label>
+        
+                        <select id="receta-producto" required>
+                            <option value="">-- Selecciona un producto --</option>
+                        </select>
+        
+                    </div>
+
+                    <div class="form-group">
+        
+                        <label>Insumos necesarios:</label>
+        
+                        <div id="receta-insumos-container">
+                            <!-- Filas dinámicas de insumos -->
+                        </div>
+        
+                        <button type="button" class="btn-secondary btn-sm" onclick="agregarFilaInsumo()" style="margin-top:10px;">+ Añadir insumo</button>
+        
+                    </div>
+
+                    <div class="form-group">
+        
+                        <label>Descripción / Instrucciones:</label>
+                        <textarea id="receta-descripcion" rows="3" placeholder="Paso a paso de preparación..."></textarea>
+        
+                    </div>
+
+                    <button type="submit" class="btn-primary">Guardar</button>
+        
+                </form>
+        
+            </div>
+        
+        </div>
+
+        <!-- ELIMINAR RECETA -->
+        <div class="modal-overlay" id="modal-eliminar-receta">
+      
+            <div class="modal-admin">
+      
+                <div class="modal-header">
+      
+                    <h3>Eliminar Receta</h3>
+                    <button class="modal-close" onclick="cerrarModal('modal-eliminar-receta')"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+      
+                </div>
+      
+                <form id="form-eliminar-receta" onsubmit="confirmarEliminarReceta(event)">
+                    
+                    <div class="form-group">
+      
+                        <label>Seleccionar receta a eliminar:</label>
+      
+                        <select id="elim-receta-selector" onchange="onCambiarRecetaEliminar()" required>
+                            <option value="">-- Elige una receta --</option>
+                        </select>
+      
+                        <input type="hidden" id="elim-receta-id">
+      
+                    </div>
+
+                    <div class="form-group form-group-centered">
+      
+                        <label class="label-warning"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> Esta acción no se puede deshacer</label>
+      
+                        <p class="hint-danger">
+                            La receta será eliminada permanentemente de la base de datos.
+                        </p>
+      
+                    </div>
+
+                    <button type="submit" class="btn-primary">Eliminar</button>
+      
+                </form>
+      
+            </div>
+      
+        </div>
+
+        <!-- EDITAR RECETA -->
+        <div class="modal-overlay" id="modal-editar-receta">
+      
+            <div class="modal-admin">
+      
+                <div class="modal-header">
+      
+                    <h3>Editar Receta</h3>
+                    <button class="modal-close" onclick="cerrarModal('modal-editar-receta')"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+      
+                </div>
+      
+                <form id="form-editar-receta" onsubmit="guardarEdicionReceta(event)">
+      
+                    <input type="hidden" id="edit-receta-id">
+
+                    <div class="form-group form-group-centered">
+      
+                        <p class="hint-danger">
+                            <strong class="label-warning"><i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i> Recuerde:</strong>
+                            Para editar una receta debe modificar los campos que desea actualizar.
+                            Si cambia los insumos, se reemplazarán todos los existentes.
+                        </p>
+      
+                    </div>
+                    
+                    <div class="form-group">
+      
+                        <label>Seleccionar receta:</label>
+      
+                        <select id="edit-receta-selector" onchange="onCambiarRecetaEditar()" required>
+                            <option value="">-- Elige una receta --</option>
+                        </select>
+      
+                    </div>
+
+                    <div class="form-group">
+      
+                        <label>Producto:</label>
+      
+                        <select id="edit-receta-producto">
+                            <option value="">-- Conservar actual --</option>
+                        </select>
+      
+                    </div>
+
+                    <div class="form-group">
+      
+                        <label>Nombre de la receta:</label>
+                        <input type="text" id="edit-receta-nombre">
+      
+                    </div>
+
+                    <div class="form-group">
+      
+                        <label>Descripción / Instrucciones:</label>
+                        <textarea id="edit-receta-descripcion" rows="3"></textarea>
+      
+                    </div>
+
+                    <div class="form-group">
+      
+                        <label>Insumos necesarios:</label>
+      
+                        <div id="edit-receta-insumos-container">
+                            <!-- Filas dinámicas de insumos -->
+                        </div>
+      
+                        <button type="button" class="btn-secondary btn-sm" onclick="agregarFilaInsumoEditar()" style="margin-top:10px;">+ Añadir insumo</button>
+      
+                    </div>
+
+                    <button type="submit" class="btn-primary">Guardar cambios</button>
+      
+                </form>
+      
+            </div>
+      
+        </div>
+
+    </body>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+    
+        <div class="footer-content">
+                    
+            <div class="footer-brand">
+            
+                <span class="footer-logo"><i class="bi bi-fire" aria-hidden="true"></i> FogonClick</span>
+                <span class="footer-version">v1.0</span>
+    
+            </div>
+                    
+            <div class="footer-team">
+            
+                <span>Desarrollado por <strong>Juan achuri</strong></span>
+                <span>Y <strong>Matteo Figueroa</strong></span>
+            
+            </div>
+                    
+            <div class="footer-links">
+                    
+                <a href="#">Términos de uso</a>
+                <span>·</span>
+                <a href="#">Privacidad</a>
+                
+            </div>
+            
+            
+            <div class="footer-copy">
+            
+                <span>© 2026 FogonClick. Todos los derechos reservados.</span>
+            
+            </div>
+    
+        </div>
+    
+    </footer>
+
+</html>
