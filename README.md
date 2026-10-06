@@ -25,7 +25,6 @@ La plataforma conecta el pago, la facturación y la entrega del comprobante sin 
 4. **Entrega:** La factura llega automáticamente al Gmail del cliente si asi lo desea, logrando comprobantes 100% trazables.
 
 
----
 
 ## 1. Qué necesitas instalar
 
@@ -227,8 +226,6 @@ En resumen de la arquitectura MVC: `Public/Controllers/` coordina las acciones d
 
 El proyecto todavía no tiene una suite automatizada de pruebas; `npm test` es el comando de ejemplo que viene en `package.json`.
 
-
----
 
 ## Contacto y Soporte
 
