@@ -1,7 +1,4 @@
-// Cliente mínimo de Supabase REST para mantener las credenciales exclusivamente
-// en el servidor. Las operaciones usan la clave secreta y nunca llegan al navegador.
-// SUPABASE_URL normalmente es la URL raíz del proyecto, aunque algunas
-// configuraciones locales la guardan con /rest/v1. Evita duplicar esa ruta.
+// Cliente mínimo de Supabase REST para mantener las credenciales exclusivamente en el servidor.
 const baseUrl = (process.env.SUPABASE_URL || '')
     .replace(/\/$/, '')
     .replace(/\/rest\/v1$/i, '');
@@ -28,8 +25,6 @@ async function request(path, { method = 'GET', body, headers = {}, key = secretK
         method,
         headers: {
             apikey: key,
-            // Las claves sb_* actuales no son JWT y solo deben ir en apikey.
-            // Las claves anon/service_role heredadas sí son JWT.
             ...(bearerToken ? { Authorization: `Bearer ${bearerToken}` } : (!key.startsWith('sb_') ? { Authorization: `Bearer ${key}` } : {})),
             Accept: 'application/json',
             ...(body !== undefined ? { 'Content-Type': 'application/json' } : {}),
