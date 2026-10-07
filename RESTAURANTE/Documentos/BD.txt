@@ -1,0 +1,164 @@
+
+CREATE TABLE public.unidad_medida (
+  id_unidad bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+  nombre text NOT NULL,
+  abreviatura text NOT NULL,
+  CONSTRAINT unidad_medida_pkey PRIMARY KEY (id_unidad)
+);
+
+CREATE TABLE public.proveedor (
+  id_proveedor bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+  nombre text NOT NULL,
+  correo text,
+  telefono text,
+  nit text,
+  CONSTRAINT proveedor_pkey PRIMARY KEY (id_proveedor)
+);
+
+CREATE TABLE public.categoria (
+  id_categoria bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+  nombre text NOT NULL,
+  CONSTRAINT categoria_pkey PRIMARY KEY (id_categoria)
+);
+
+CREATE TABLE public.estado (
+  id_estado bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+  nombre text NOT NULL,
+  CONSTRAINT estado_pkey PRIMARY KEY (id_estado)
+);
+
+CREATE TABLE public.rol (
+  id_rol bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+  rol text NOT NULL,
+  CONSTRAINT rol_pkey PRIMARY KEY (id_rol)
+);
+
+CREATE TABLE public.insumo (
+  id_insumo bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+  nombre text NOT NULL,
+  stock numeric NOT NULL DEFAULT 0,
+  fec_vencimiento date NOT NULL,
+  costo numeric NOT NULL,
+  id_proveedor bigint,
+  id_unidad bigint NOT NULL,
+  CONSTRAINT insumo_pkey PRIMARY KEY (id_insumo),
+  CONSTRAINT insumo_id_proveedor_fkey FOREIGN KEY (id_proveedor) REFERENCES public.proveedor(id_proveedor),
+  CONSTRAINT insumo_id_unidad_fkey FOREIGN KEY (id_unidad) REFERENCES public.unidad_medida(id_unidad)
+);
+
+CREATE TABLE public.producto (
+  id_producto bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+  nombre text NOT NULL,
+  precio numeric NOT NULL,
+  descripcion text NOT NULL,
+  url_foto text NOT NULL,
+  id_categoria bigint,
+  CONSTRAINT producto_pkey PRIMARY KEY (id_producto),
+  CONSTRAINT producto_id_categoria_fkey FOREIGN KEY (id_categoria) REFERENCES public.categoria(id_categoria)
+);
+
+CREATE TABLE public.receta (
+  id_receta bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+  nombre text NOT NULL,
+  descripcion text NOT NULL,
+  id_producto bigint NOT NULL,
+  CONSTRAINT receta_pkey PRIMARY KEY (id_receta),
+  CONSTRAINT receta_id_producto_fkey FOREIGN KEY (id_producto) REFERENCES public.producto(id_producto)
+);
+
+CREATE TABLE public.detalle_receta (
+  id_insumo bigint NOT NULL,
+  id_receta bigint NOT NULL,
+  cantidad numeric NOT NULL,
+  CONSTRAINT detalle_receta_pkey PRIMARY KEY (id_insumo, id_receta),
+  CONSTRAINT detalle_receta_id_insumo_fkey FOREIGN KEY (id_insumo) REFERENCES public.insumo(id_insumo),
+  CONSTRAINT detalle_receta_id_receta_fkey FOREIGN KEY (id_receta) REFERENCES public.receta(id_receta)
+);
+
+CREATE TABLE public.empleado (
+  id_empleado bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+  nombre text NOT NULL,
+  correo text NOT NULL UNIQUE,
+  telefono text NOT NULL,
+  id_rol bigint NOT NULL,
+  id_empresa bigint NOT NULL,
+  cedula character varying NOT NULL UNIQUE,
+  password text NOT NULL,
+  activo boolean NOT NULL DEFAULT true,
+  CONSTRAINT empleado_pkey PRIMARY KEY (id_empleado),
+  CONSTRAINT empleado_id_rol_fkey FOREIGN KEY (id_rol) REFERENCES public.rol(id_rol),
+  CONSTRAINT empleado_id_empresa_fkey FOREIGN KEY (id_empresa) REFERENCES public.empresa(id_empresa)
+);
+
+CREATE TABLE public.pedido (
+  id_pedido bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+  cli_nombre text NOT NULL,
+  cli_cedula text,
+  cli_correo text,
+  fec_creacion timestamp with time zone NOT NULL DEFAULT now(),
+  id_empleado bigint NOT NULL,
+  id_estado bigint NOT NULL,
+  CONSTRAINT pedido_pkey PRIMARY KEY (id_pedido),
+  CONSTRAINT pedido_id_empleado_fkey FOREIGN KEY (id_empleado) REFERENCES public.empleado(id_empleado),
+  CONSTRAINT pedido_id_estado_fkey FOREIGN KEY (id_estado) REFERENCES public.estado(id_estado)
+);
+
+CREATE TABLE public.detalle_pedido (
+  id_pedido bigint NOT NULL,
+  id_producto bigint NOT NULL,
+  cantidad integer NOT NULL,
+  CONSTRAINT detalle_pedido_pkey PRIMARY KEY (id_pedido, id_producto),
+  CONSTRAINT detalle_pedido_id_pedido_fkey FOREIGN KEY (id_pedido) REFERENCES public.pedido(id_pedido),
+  CONSTRAINT detalle_pedido_id_producto_fkey FOREIGN KEY (id_producto) REFERENCES public.producto(id_producto)
+);
+
+CREATE TABLE public.factura (
+  id_factura bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+  total numeric NOT NULL,
+  fec_creacion timestamp with time zone NOT NULL DEFAULT now(),
+  id_pedido bigint NOT NULL,
+  id_empresa bigint NOT NULL,
+  url_factura text,
+  CONSTRAINT factura_pkey PRIMARY KEY (id_factura),
+  CONSTRAINT factura_id_pedido_fkey FOREIGN KEY (id_pedido) REFERENCES public.pedido(id_pedido),
+  CONSTRAINT factura_id_empresa_fkey FOREIGN KEY (id_empresa) REFERENCES public.empresa(id_empresa)
+);
+
+CREATE TABLE public.empresa (
+  id_empresa bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+  tipo_organizacion character varying NOT NULL,
+  razon_social text,
+  nombre_comercial text,
+  nombres text,
+  apellidos text,
+  codigo_registro_mercantil text,
+  actividad_economica character varying,
+  telefono text,
+  correo_electronico text,
+  direccion text,
+  codigo_tributo text,
+  codigo_municipio character varying NOT NULL,
+  responsabilidades_fiscales text,
+  nit character varying NOT NULL UNIQUE,
+  dv character varying NOT NULL,
+  logo_url text,
+  CONSTRAINT empresa_pkey PRIMARY KEY (id_empresa)
+);
+
+CREATE TABLE public.pago (
+  id_pago bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+  id_pedido bigint NOT NULL,
+  monto numeric NOT NULL,
+  metodo_pago text NOT NULL DEFAULT 'por_definir'::text,
+  fecha_creacion timestamp with time zone NOT NULL DEFAULT now(),
+  id_estado bigint,
+  CONSTRAINT pago_pkey PRIMARY KEY (id_pago),
+  CONSTRAINT pago_id_pedido_fkey FOREIGN KEY (id_pedido) REFERENCES public.pedido(id_pedido),
+  CONSTRAINT pago_id_estado_fkey FOREIGN KEY (id_estado) REFERENCES public.Estado_Pago(id_EstPag)
+);
+
+CREATE TABLE public.Estado_Pago (
+  id_EstPag bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
+  Estado character varying NOT NULL,
+  CONSTRAINT Estado_Pago_pkey PRIMARY KEY (id_EstPag)
+);
