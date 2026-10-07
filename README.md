@@ -134,7 +134,17 @@ Si descargaste el proyecto como ZIP:
 
 4. Recuerda que ejecutar npm start equivale a lanzar node --env-file=.env server.js.
 
-## 7. Cómo funciona
+## 7. Credenciales de prueba
+
+Para ingresar a los distintos paneles del sistema utilizando la base de datos del equipo, puedes utilizar las siguientes credenciales registradas según el rol que desees probar:
+
+| Rol | Correo / Usuario | Contraseña | Nombre |
+|---|---|---|---|
+| **Administrador** | `juan@fogon.com` | `123453` | Juan Pérez |
+| **Caja** | `cajero@fogoncentral.com` | `098765` | Sofia Martinez |
+| **Cocina** | `mesero@fogoncentral.com` | `678901` | Ana Rodriguez22 |
+
+## 8. Cómo funciona
 
 Nuestra estructura sigue firmemente una **arquitectura MVC (Modelo-Vista-Controlador)**, orientada a la eficiencia operativa conectando el frontend, los datos y los servicios externos de manera centralizada:
 
@@ -172,7 +182,7 @@ En resumen de la arquitectura MVC: `Public/Controllers/` coordina las acciones d
 | `package-lock.json` | Versiones instaladas por npm ci |
 | `.env.example` | Plantilla con los nombres de variables |
 
-## 8. Cómo usarlo (Flujo de configuración)
+## 9. Cómo usarlo (Flujo de configuración)
 
 Para iniciar la operación correctamente en el sistema, debes seguir este orden lógico para registrar la información base de tu restaurante:
 
