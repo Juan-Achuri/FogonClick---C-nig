@@ -20,9 +20,9 @@ app.use('/api/admin', requireAuth, require('./Models/admin'));
 app.use('/api/caja', requireAuth, requireAuth.role('admin', 'caja'), require('./Models/Caja'));
 app.use('/api/cocina', requireAuth, requireAuth.role('admin', 'cocina'), require('./Models/Cocina'));
 
-// ============================================
+
 // SOCKET.IO - CHAT
-// ============================================
+
 io.on('connection', (socket) => {
     const rol = socket.handshake.auth.rol || "Usuario";
     socket.data.rol = rol;
@@ -39,9 +39,7 @@ io.on('connection', (socket) => {
     });
 });
 
-// ============================================
 // ARRANQUE
-// ============================================
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
     console.log('🔥 FogonClick servidor corriendo en http://localhost:' + PORT);
