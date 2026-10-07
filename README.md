@@ -50,6 +50,16 @@ npm ci
 
 Sabemos que no es una buena practica pero como equipo decidimos compartirte el archivo `.env` de pruebas para que puedas ver en tiempo real como opera el sistema con los registros. Guárdalo en la carpeta raíz del proyecto, junto a `server.js` y `package.json`. **No uses `.env.example` para conectarte al ambiente del equipo:** contiene valores de ejemplo(para que inicies con un proyecto nuevo), no las credenciales actuales.
 
+Si descargaste el proyecto como ZIP:
+
+1. Extrae el contenido.
+
+2. Asegúrate de abrir la terminal dentro de la carpeta que contiene el archivo package.json (si se creó una carpeta como RESTAURANTE-main, entra a ella).
+
+3. Ejecuta npm ci (o npm install si te da algún problema de ruta).
+
+4. Recuerda que ejecutar npm start equivale a lanzar node --env-file=.env server.js.
+
 ## 3. Probar el ambiente del equipo
 
 Para usar la base de datos y las integraciones que ya tiene el equipo:
