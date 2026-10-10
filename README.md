@@ -4,7 +4,7 @@ FogonClick es un sistema web para la operación de un restaurante. Incluye inici
 
 Esta guía explica cómo clonar el repositorio, instalar lo necesario y probar el mismo ambiente que usamos como equipo.
 
-**Proyecto:** CPara evitar el descargue e instalacion local pruebe nuestro proyecto en el siguiente url: https://fogonclick.onrender.com/.
+**Proyecto:** Para evitar el descargue e instalación local pruebe nuestro proyecto en el siguiente url: https://fogonclick.onrender.com/. También hay que tener en cuenta que la funcionalidad del envío de las facturas por correo electrónico (mediante SMTP con Gmail) está implementada en el backend y es plenamente funcional en un entorno local. En la versión web  el proveedor de hosting (Render Free) por lo que recomiendo que por favor puedan ver el proyecto con las indicaciones locales para ver la totalidad de su funcionamiento...
 
 ## Sobre el Proyecto
 
