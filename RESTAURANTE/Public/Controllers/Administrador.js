@@ -1,7 +1,7 @@
 // PANEL ADMINISTRADOR
 
 // URL base de la API del servidor backend
-const URL_API = 'http://localhost:3000/api/admin';
+const URL_API = '/api/admin';
 
 // Variable para controlar auto-refresh de inventario
 let intervaloInventario = null;
